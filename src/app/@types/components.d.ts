@@ -1,6 +1,5 @@
 interface TestItem {
     title: string;
-    testReading?: string;
     question: {
         number: number;
         line?: number;

@@ -3,7 +3,7 @@
 .page_inner_wrap{
     display: flex;
     justify-content: center;
-    padding: 30px 0;
+    padding: 20px 0;
 }
 .test_container .question_box_wrap{
     display: flex;
@@ -25,10 +25,6 @@
     font-size: 17px;
     font-weight: 600;
 }
-.test_container .question_test_reading{
-    border: 3px solid #000000;
-    padding: 16px;
-}
 .test_container .question_item_box_wrap {
     display: flex;
     flex-direction: column;
@@ -39,8 +35,14 @@
     flex-direction: column;
     gap: 10px;
 }
+.test_container .question_q_reading_box{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 .test_container .question_q_reading{
-    padding: 30px 0;
+    border: 3px solid #000000;
+    padding: 16px;
 }
 .test_container .answer_box {
     display: flex;
@@ -49,7 +51,7 @@
 
 .test_container .answer_box_4 {
     display: flex;
-    gap: 8px;
+    gap: 3px;
     flex-direction: column;
 }
 .test_container .answer_box_wrap{
@@ -71,4 +73,8 @@
 .test_container .answer_box .question_item{
     cursor: pointer;
     flex: 1;
+}
+.test_container .attach {
+    text-align: right;
+    font-size: 12px;
 }

@@ -1,5 +1,5 @@
 'use client';
-import React from "react";
+import React, {Fragment} from "react";
 import {test} from "@/app/constants/const";
 import './test.css'
 import Header from "@/app/components/header/header";
@@ -15,34 +15,35 @@ export default function Page() {
       return selectedQuestions.map((questionSet, setIndex) => (
           <div key={setIndex} className={'question_box'}>
               <div className={'question_box_title'}>{questionSet.title}</div>
-              {questionSet.testReading && <div className={'question_test_reading'}>{questionSet.testReading}</div>}
               <div className={'question_item_box_wrap'}>
                   {questionSet.question.map((question, questionIndex) => (
-                      <div className={'question_item_box'} key={questionIndex}>
-                          {question.qReading && <div className={'question_q_reading'}>{question.qReading}</div>}
+                      <Fragment key={questionIndex}>
+                          {question.qReading &&  <div className={'question_q_reading_box'} >{question.qReading}</div>}
+                      <div className={'question_item_box'} >
                           <p>{question.number}.{question.q}</p>
                           <div className={question.line === 4 ? 'answer_box_4' : question.line === 2 ? 'answer_box_2' : 'answer_box'}>
                               {question.line === 2 ?
                                   <>
                                       <div className={'question_item_wrap'}>
-                                          <div className={'question_item'}>①{question.a1}</div>
-                                          <div className={'question_item'}>③{question.a2}</div>
+                                          <div className={'question_item'}>① {question.a1}</div>
+                                          <div className={'question_item'}>③ {question.a2}</div>
                                       </div>
                                       <div className={'question_item_wrap'}>
-                                          <div className={'question_item'}>②{question.a3}</div>
-                                          <div className={'question_item'}>④{question.a4}</div>
+                                          <div className={'question_item'}>② {question.a3}</div>
+                                          <div className={'question_item'}>④ {question.a4}</div>
                                       </div>
                                   </>
                                   :
                                   <>
-                                      <div className={'question_item'}>①{question.a1}</div>
-                                      <div className={'question_item'}>②{question.a2}</div>
-                                      <div className={'question_item'}>③{question.a3}</div>
-                                      <div className={'question_item'}>④{question.a4}</div>
+                                      <div className={'question_item'}>① {question.a1}</div>
+                                      <div className={'question_item'}>② {question.a2}</div>
+                                      <div className={'question_item'}>③ {question.a3}</div>
+                                      <div className={'question_item'}>④ {question.a4}</div>
                                   </>
                               }
                           </div>
                       </div>
+                      </Fragment>
                   ))}
               </div>
           </div>
