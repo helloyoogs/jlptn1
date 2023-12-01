@@ -10,9 +10,8 @@ export default function Page() {
     const id = useParams().id;
     const testId = test[Number(id)];
 
-  const  RenderQuestionBox = (n1Item:string) => {
-      const selectedQuestions = n1Item === 'n1v' ? testId.n1v : n1Item === 'n1g' ? testId.n1g : testId.n1r;
-      return selectedQuestions.map((questionSet, setIndex) => (
+  const  RenderQuestionBox = () => {
+      return testId.n1?.map((questionSet, setIndex) => (
           <div key={setIndex} className={'question_box'}>
               <div className={'question_box_title'}>{questionSet.title}</div>
               <div className={'question_item_box_wrap'}>
@@ -56,9 +55,7 @@ export default function Page() {
                 <div className={'page_inner_wrap'}>
                     <div className={'question_box_wrap'}>
                         <div className={'question_box_wrap_name'}>{testId.name}</div>
-                        {RenderQuestionBox('n1v')}
-                        {RenderQuestionBox('n1g')}
-                        {RenderQuestionBox('n1r')}
+                        {RenderQuestionBox()}
                     </div>
                 </div>
                 <Footer/>
