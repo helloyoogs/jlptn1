@@ -7,8 +7,9 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    width: 872px;
+    width: 800px;
     line-height: 130%;
+    white-space: pre-line;
 }
 .test_container .question_box_wrap_name{
     font-size: 20px;
@@ -42,6 +43,17 @@
 .test_container .question_q_reading{
     border: 3px solid #000000;
     padding: 16px;
+}
+.test_container .question_q_reading_box strong{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.test_container .question_q_reading_box .note_box{
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
 }
 .test_container .answer_box {
     display: flex;

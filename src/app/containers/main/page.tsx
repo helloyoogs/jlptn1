@@ -7,28 +7,33 @@ import React, {Fragment} from "react";
 import {test} from "@/app/constants/const";
 
 export default function Main() {
+    const halfIndex = Math.ceil(test.length / 2);
+    const firstHalf = test.slice(0, halfIndex);
+    const secondHalf = test.slice(halfIndex);
+
     return (
         <div className={'main_container'}>
             <div className={'page_inner'}>
-                <Header/>
-                    <div className={'test_box_wrap'}>
-                        <div className={'test_item_box'}>
-                            {test.map((questionSet, setIndex) => (
-                            <a key={setIndex} className={'question_box'} href={`/containers/test/`+setIndex}>
+                <Header />
+                <div className={'test_box_wrap'}>
+                    <div className={'test_item_box'}>
+                        {firstHalf.map((questionSet, setIndex) => (
+                            <a key={setIndex} className={'question_box'} href={`/containers/test/` + setIndex}>
                                 {questionSet.name}
                             </a>
-                            ))}
-                        </div>
-                        <div className={'test_item_box'}>
-                            {/*<a>2021年3月模擬試験</a>*/}
-                            {/*<a>2021年3月模擬試験</a>*/}
-                            {/*<a>2021年3月模擬試験</a>*/}
-                            {/*<a>2021年3月模擬試験</a>*/}
-                            {/*<a>2021年3月模擬試験</a>*/}
-                        </div>
+                        ))}
                     </div>
-                <Footer/>
+                    <div className={'test_item_box'}>
+                        {secondHalf.map((questionSet, setIndex) => (
+                            <a key={halfIndex + setIndex} className={'question_box'} href={`/containers/test/` + (halfIndex + setIndex)}>
+                                {questionSet.name}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+                <Footer />
             </div>
         </div>
-    )
+    );
+
 }
