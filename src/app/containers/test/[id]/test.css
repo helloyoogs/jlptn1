@@ -44,6 +44,14 @@
     border: 3px solid #000000;
     padding: 16px;
 }
+.test_container .question_q_reading_box img{
+    width: 100%;
+    height: auto;
+}
+.test_container .q_img{
+    width: 100%;
+    height: auto;
+}
 .test_container .question_q_reading_box strong{
     display: flex;
     justify-content: center;
