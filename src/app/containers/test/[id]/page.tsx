@@ -19,25 +19,25 @@ export default function Page() {
                       <Fragment key={questionIndex}>
                           {question.qReading &&  <div className={'question_q_reading_box'} >{question.qReading}</div>}
                       <div className={'question_item_box'} >
-                          <p>{question.number}.{question.q}</p>
+                          <p className={'question_text'}>{question.number}.{question.q}</p>
                           <div className={question.line === 4 ? 'answer_box_4' : question.line === 2 ? 'answer_box_2' : 'answer_box'}>
                               {question.line === 2 ?
                                   <>
                                       <div className={'question_item_wrap'}>
-                                          <div className={'question_item'}>① {question.a1}</div>
-                                          <div className={'question_item'}>③ {question.a2}</div>
+                                          <div className={'question_item'}>1 {question.a1}</div>
+                                          <div className={'question_item'}>2 {question.a2}</div>
                                       </div>
                                       <div className={'question_item_wrap'}>
-                                          <div className={'question_item'}>② {question.a3}</div>
-                                          <div className={'question_item'}>④ {question.a4}</div>
+                                          <div className={'question_item'}>3 {question.a3}</div>
+                                          <div className={'question_item'}>4 {question.a4}</div>
                                       </div>
                                   </>
                                   :
                                   <>
-                                      <div className={'question_item'}>① {question.a1}</div>
-                                      <div className={'question_item'}>② {question.a2}</div>
-                                      <div className={'question_item'}>③ {question.a3}</div>
-                                      <div className={'question_item'}>④ {question.a4}</div>
+                                      <div className={'question_item'}>1 {question.a1}</div>
+                                      <div className={'question_item'}>2 {question.a2}</div>
+                                      <div className={'question_item'}>3 {question.a3}</div>
+                                      <div className={'question_item'}>4 {question.a4}</div>
                                   </>
                               }
                           </div>
