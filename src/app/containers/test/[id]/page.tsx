@@ -9,7 +9,6 @@ import {useParams} from "next/navigation";
 export default function Page() {
     const id = useParams().id;
     const testId = test[Number(id)];
-
   const  RenderQuestionBox = () => {
       return testId.n1?.map((questionSet, setIndex) => (
           <div key={setIndex} className={'question_box'}>
@@ -24,20 +23,25 @@ export default function Page() {
                               {question.line === 2 ?
                                   <>
                                       <div className={'question_item_wrap'}>
-                                          <div className={'question_item'}>1 {question.a1}</div>
-                                          <div className={'question_item'}>2 {question.a2}</div>
-                                      </div>
-                                      <div className={'question_item_wrap'}>
-                                          <div className={'question_item'}>3 {question.a3}</div>
-                                          <div className={'question_item'}>4 {question.a4}</div>
+                                          {question.options?.slice(0, 2).map((option:string|React.ReactNode, optionIndex:number) => (
+                                              <Fragment key={optionIndex}>
+                                                  <div className={'question_item'}>{optionIndex + 1} {option}</div>
+                                              </Fragment>
+                                          ))}
+                                          {question.options?.slice(2, 4).map((option:string|React.ReactNode, optionIndex:number) => (
+                                              <Fragment key={optionIndex}>
+                                                  <div className={'question_item'}>{optionIndex + 3} {option}</div>
+                                              </Fragment>
+                                          ))}
                                       </div>
                                   </>
                                   :
                                   <>
-                                      <div className={'question_item'}>1 {question.a1}</div>
-                                      <div className={'question_item'}>2 {question.a2}</div>
-                                      <div className={'question_item'}>3 {question.a3}</div>
-                                      <div className={'question_item'}>4 {question.a4}</div>
+                                      {question.options?.map((option:string|React.ReactNode, optionIndex:number) => (
+                                          <Fragment key={optionIndex}>
+                                              <div className={'question_item'}>{optionIndex +1} {option}</div>
+                                          </Fragment>
+                                      ))}
                                   </>
                               }
                           </div>
