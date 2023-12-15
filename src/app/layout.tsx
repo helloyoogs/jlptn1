@@ -1,10 +1,11 @@
 'use client';
 import './globals.css'
 import React from "react";
-import {SessionProvider} from "next-auth/react";
+import {SessionProvider, useSession} from "next-auth/react";
 
 
 export default function RootLayout({children}: { children: React.ReactNode }) {
+
     return (
         <html lang="ja">
         <head>

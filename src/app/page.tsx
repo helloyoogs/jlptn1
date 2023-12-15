@@ -1,19 +1,14 @@
 'use client';
-import Image from 'next/image'
 import {pageIndex} from "@/app/constants/const";
 import Link from "next/link";
+import {useSession} from "next-auth/react";
+import Main from "@/app/containers/main/page";
+import Login from "@/app/containers/login/page";
 
 export default function Home() {
-  return (
-
-      pageIndex.map((p,index) => {
-        return (
-            <div  key={index} className={'project_manager'}>
-                      <Link href={p.pages.link}>{p.name}</Link>
-            </div>
-        )
-      })
-
-
+    const { data: session } = useSession();
+    console.log(session);
+    return (
+        session?<Main/>:<Login/>
   )
 }

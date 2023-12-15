@@ -1,12 +1,12 @@
 'use client'
-import { useSession, signIn, signOut } from "next-auth/react"
+import {signIn, signOut, useSession} from "next-auth/react"
 
 function Login() {
-    const { data: session } = useSession()
-    console.log(session)
+
     return (
         <div>
             <button onClick={() => signIn("google", { callbackUrl: "/" })} >구글 로그인</button>
+            <button onClick={() =>signOut()} >구글 로그아웃</button>
         </div>
 
     )
