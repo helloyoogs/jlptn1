@@ -27,6 +27,11 @@ export const pageIndex = [
         pages: {link: '/containers/test', title: 'test'},
 
     },
+    {
+        name: '로그인',
+        pages: {link: '/containers/login', title: 'login'},
+
+    },
 ]
 /* 모의 모음 */
 const blankRound = <>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</>

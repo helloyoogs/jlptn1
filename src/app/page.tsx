@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image'
 import {pageIndex} from "@/app/constants/const";
 import Link from "next/link";
