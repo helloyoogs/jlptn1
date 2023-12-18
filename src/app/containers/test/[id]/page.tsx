@@ -5,11 +5,14 @@ import './test.css'
 import Header from "@/app/components/header/header";
 import Footer from "@/app/components/footer/footer";
 import {useParams} from "next/navigation";
+import {useSession} from "next-auth/react";
 
 export default function Page() {
-    const id = useParams().id;
+    const id = useParams()?.id;
     const testId = test[Number(id)];
-  const  RenderQuestionBox = () => {
+    const { data: session } = useSession();
+
+    const  RenderQuestionBox = () => {
       return testId.n1?.map((questionSet, setIndex) => (
           <div key={setIndex} className={'question_box'}>
               <div className={'question_box_title'}>{questionSet.title}</div>
@@ -25,12 +28,14 @@ export default function Page() {
                                       <div className={'question_item_wrap'}>
                                           {question.options?.slice(0, 2).map((option:string|React.ReactNode, optionIndex:number) => (
                                               <Fragment key={optionIndex}>
-                                                  <div className={'question_item'}>{optionIndex + 1} {option}</div>
+                                                  <div className={'question_item'}>
+                                                      <div className={'question_choice_number'}>{optionIndex + 1}</div> {option}</div>
                                               </Fragment>
                                           ))}
                                           {question.options?.slice(2, 4).map((option:string|React.ReactNode, optionIndex:number) => (
                                               <Fragment key={optionIndex}>
-                                                  <div className={'question_item'}>{optionIndex + 3} {option}</div>
+                                                  <div className={'question_item'}>
+                                                      <div className={'question_choice_number'}>{optionIndex + 3}</div> {option}</div>
                                               </Fragment>
                                           ))}
                                       </div>
@@ -39,7 +44,8 @@ export default function Page() {
                                   <>
                                       {question.options?.map((option:string|React.ReactNode, optionIndex:number) => (
                                           <Fragment key={optionIndex}>
-                                              <div className={'question_item'}>{optionIndex +1} {option}</div>
+                                              <div className={'question_item'}>
+                                                  <div className={'question_choice_number'}>{optionIndex +1}</div> {option}</div>
                                           </Fragment>
                                       ))}
                                   </>
@@ -61,6 +67,17 @@ export default function Page() {
                         <div className={'question_box_wrap_name'}>{testId.name}</div>
                         {RenderQuestionBox()}
                     </div>
+                    {session?
+                            <div className={'save_box'}>
+                            <button  className={'save'}>
+                                臨時貯蔵
+                            </button>
+                            <button className={'submit'}>
+                                提出
+                            </button>
+                            </div>
+                        :null
+                    }
                 </div>
                 <Footer/>
             </div>

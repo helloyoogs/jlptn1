@@ -3,12 +3,11 @@
     height: 100%;
 }
 
-.main_container .test_box_wrap{
-    padding: 80px 0;
-    display: flex;
-    align-items: center;
+header{
+    background: #FFF5F8;
+}
+.main_container .page_inner_wrap{
     gap: 50px;
-    justify-content: center;
 }
 .main_container .test_item_box{
     align-items: center;
@@ -16,11 +15,11 @@
     flex-direction: column;
     gap: 50px;
 }
-.main_container .test_box_wrap a{
+.main_container .test_item_box a{
     cursor: pointer;
     border-bottom: 1px solid #000000;
 }
-.main_container .test_box_wrap a:hover{
+.main_container .test_item_box a:hover{
     border-bottom: 1px solid #CF3E75;
     color: #CF3E75;
 }

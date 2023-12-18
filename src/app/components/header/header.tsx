@@ -1,9 +1,13 @@
 import '../header/header.css'
 import {signIn, signOut, useSession} from "next-auth/react";
+import {useEffect} from "react";
 
 export default function Header() {
     const {data: session} = useSession();
     console.log(session);
+    useEffect(() => {
+
+    });
     return (
         <header>
             <div className={'header_nav'}>
@@ -12,7 +16,7 @@ export default function Header() {
                 {session ?
                     <>
                     <a onClick={() => signOut({callbackUrl: "/"})}>ログアウト</a>
-                    <a>マイパージ</a>
+                    <a>マイページ</a>
                     </>
                     :
                     <a onClick={() => signIn("google", {callbackUrl: "/"})}>ログイン</a>
