@@ -15,8 +15,8 @@ export default function Header() {
                 <a href={'/containers/main'}>ホーム</a>
                 {session ?
                     <>
-                    <a onClick={() => signOut({callbackUrl: "/"})}>ログアウト</a>
-                    <a>マイページ</a>
+                        <a onClick={() => signOut({callbackUrl: "/"})}>ログアウト</a>
+                        <a href={'/containers/my'}>マイページ</a>
                     </>
                     :
                     <a onClick={() => signIn("google", {callbackUrl: "/"})}>ログイン</a>
