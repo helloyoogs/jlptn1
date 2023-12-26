@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "dotenv": "^16.3.1",
-    "mongoose": "^8.0.1",
-    "next": "^14.0.2",
-    "next-auth": "^4.24.5",
+    "mongoose": "^8.0.3",
+    "next": "^13.5.7-canary.37",
+    "next-auth": "^latest_version",
     "react": "^18",
     "react-dom": "^18",
     "react-router-dom": "^6.20.0"
