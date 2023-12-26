@@ -50,5 +50,10 @@ sub{
     justify-content: space-between;
     height: 100%;
 }
-ruby{
+.page_inner_wrap{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+    margin-top: 100px;
 }
