@@ -1,5 +1,5 @@
 'use client';
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {test} from "@/app/constants/const";
 import './test.css'
 import Header from "@/app/components/header/header";
@@ -11,7 +11,16 @@ export default function Page() {
     const id = useParams()?.id;
     const testId = test[Number(id)];
     const { data: session } = useSession();
+    const [answers, setAnswers] = useState(null);
+    const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
 
+    const handleAnswer = (questionNumber: number, answer: number) => {
+        console.log('handleAnswer called with questionNumber:', questionNumber, 'and answer:', answer);
+        setSelectedAnswers((prevAnswers) => ({ ...prevAnswers, [questionNumber]: answer }));
+    };
+    useEffect(() => {
+        console.log(selectedAnswers);
+    }, [selectedAnswers]);
     const  RenderQuestionBox = () => {
       return testId.n1?.map((questionSet, setIndex) => (
           <div key={setIndex} className={'question_box'}>
@@ -29,13 +38,24 @@ export default function Page() {
                                           {question.options?.slice(0, 2).map((option:string|React.ReactNode, optionIndex:number) => (
                                               <Fragment key={optionIndex}>
                                                   <div className={'question_item'}>
-                                                      <div className={'question_choice_number'}>{optionIndex + 1}</div> {option}</div>
+                                                      <div className={"question_choice_box"} onClick={()=> handleAnswer(question.number, optionIndex + 1)}>
+                                                      <div className={'question_choice_number'}>{optionIndex + 1}</div>
+                                                      <div className={'question_choice_text'}>
+                                                      {option}
+                                                      </div>
+                                                      </div>
+                                                  </div>
                                               </Fragment>
                                           ))}
                                           {question.options?.slice(2, 4).map((option:string|React.ReactNode, optionIndex:number) => (
                                               <Fragment key={optionIndex}>
                                                   <div className={'question_item'}>
-                                                      <div className={'question_choice_number'}>{optionIndex + 3}</div> {option}</div>
+                                                      <div className={"question_choice_box"} onClick={()=> handleAnswer(question.number, optionIndex + 3)}>
+                                                          <div className={"question_choice_number"}>
+                                                              {optionIndex + 3}</div>
+                                                      <div className={'question_choice_text'}>{option}</div>
+                                                      </div>
+                                                  </div>
                                               </Fragment>
                                           ))}
                                       </div>
@@ -45,7 +65,13 @@ export default function Page() {
                                       {question.options?.map((option:string|React.ReactNode, optionIndex:number) => (
                                           <Fragment key={optionIndex}>
                                               <div className={'question_item'}>
-                                                  <div className={'question_choice_number'}>{optionIndex +1}</div> {option}</div>
+                                                  <div className={"question_choice_box"} onClick={()=> handleAnswer(question.number, optionIndex + 1)}>
+                                                      <div className={"question_choice_number"}>
+                                                          {optionIndex +1}
+                                                  </div>
+                                                  <div className={'question_choice_text'}>{option}</div>
+                                              </div>
+                                              </div>
                                           </Fragment>
                                       ))}
                                   </>

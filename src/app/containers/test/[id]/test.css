@@ -96,14 +96,16 @@ text-indent: -20px;
 .test_container .answer_box_4 .question_item,
 .test_container .answer_box_2 .question_item,
 .test_container .answer_box .question_item{
-    cursor: pointer;
     flex: 1;
-    display: flex;
-    align-items: flex-start;
-    gap: 2px;
 }
-
-.test_container  .question_item:hover .question_choice_number{
+.test_container  .question_choice_box{
+    cursor: pointer;
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    width: fit-content;
+}
+.test_container  .question_choice_box:hover .question_choice_number{
 background: #000;
     color: #FFF;
 }

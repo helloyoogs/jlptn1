@@ -24,9 +24,9 @@ export default function Home() {
 
     return (
         <>
-            {/*{status === "loading" ? <p>Loading...</p>:*/}
-            {/*     <Main/>*/}
-            {/*}*/}
+            {status === "loading" ? <p>Loading...</p>:
+                 <Main/>
+            }
             <input
                 type="text"
                 placeholder="Name"
