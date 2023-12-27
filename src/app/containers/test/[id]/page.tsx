@@ -11,9 +11,30 @@ export default function Page() {
     const id = useParams()?.id;
     const testId = test[Number(id)];
     const { data: session } = useSession();
-    const [answers, setAnswers] = useState(null);
     const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
+    const handleSave = async () => {
+        const response = await fetch('/api/data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ testId: testId.id, content: selectedAnswers }),
+        });
+        const data = await response.json();
+        console.log(data);
+    };
 
+    const handleSubmit= async () => {
+        const response = await fetch('/api/data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ testId: testId.id, content: selectedAnswers }),
+        });
+        const data = await response.json();
+        console.log(data);
+    };
     const handleAnswer = (questionNumber: number, answer: number) => {
         console.log('handleAnswer called with questionNumber:', questionNumber, 'and answer:', answer);
         setSelectedAnswers((prevAnswers) => ({ ...prevAnswers, [questionNumber]: answer }));
@@ -38,7 +59,7 @@ export default function Page() {
                                           {question.options?.slice(0, 2).map((option:string|React.ReactNode, optionIndex:number) => (
                                               <Fragment key={optionIndex}>
                                                   <div className={'question_item'}>
-                                                      <div className={"question_choice_box"} onClick={()=> handleAnswer(question.number, optionIndex + 1)}>
+                                                      <div className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 ? 'active' : ''}`} onClick={() => handleAnswer(question.number, optionIndex + 1)}>
                                                       <div className={'question_choice_number'}>{optionIndex + 1}</div>
                                                       <div className={'question_choice_text'}>
                                                       {option}
@@ -50,7 +71,7 @@ export default function Page() {
                                           {question.options?.slice(2, 4).map((option:string|React.ReactNode, optionIndex:number) => (
                                               <Fragment key={optionIndex}>
                                                   <div className={'question_item'}>
-                                                      <div className={"question_choice_box"} onClick={()=> handleAnswer(question.number, optionIndex + 3)}>
+                                                      <div className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 ? 'active' : ''}`} onClick={()=> handleAnswer(question.number, optionIndex + 3)}>
                                                           <div className={"question_choice_number"}>
                                                               {optionIndex + 3}</div>
                                                       <div className={'question_choice_text'}>{option}</div>
@@ -65,7 +86,7 @@ export default function Page() {
                                       {question.options?.map((option:string|React.ReactNode, optionIndex:number) => (
                                           <Fragment key={optionIndex}>
                                               <div className={'question_item'}>
-                                                  <div className={"question_choice_box"} onClick={()=> handleAnswer(question.number, optionIndex + 1)}>
+                                                  <div className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 ? 'active' : ''}`}  onClick={()=> handleAnswer(question.number, optionIndex + 1)}>
                                                       <div className={"question_choice_number"}>
                                                           {optionIndex +1}
                                                   </div>
@@ -95,7 +116,7 @@ export default function Page() {
                     </div>
                     {session?
                             <div className={'save_box'}>
-                            <button  className={'save'}>
+                            <button  className={'save'} onClick={handleSave}>
                                 臨時貯蔵
                             </button>
                             <button className={'submit'}>
