@@ -2,6 +2,7 @@ import connectDB from './db';
 import mongoose from 'mongoose';
 
 const DataModel = mongoose.model('test', {
+    user:String,
     testId: Number,
     content: Object,
 });
@@ -10,10 +11,29 @@ const handler = async (req, res) => {
     await connectDB();
 
     switch (req.method) {
+        case 'GET':
+            // Delete data entry by testId
+            try {
+                const findData = await DataModel.findOne({
+                    user:req.body.user,
+                    testId: req.body.testId,
+                });
+                if (findData) {
+                    console.log('Data deleted successfully');
+                    res.status(200).json({ message: 'Data find successfully' });
+                } else {
+                    res.status(404).json({ message: 'Data not found' });
+                }
+            } catch (error) {
+                console.error('Error find data from MongoDB:', error);
+                res.status(500).json({ message: 'Internal Server Error' });
+            }
+            break;
         case 'POST':
             // Create a new data entry
             try {
                 const data = new DataModel({
+                    user:req.body.user,
                     testId: req.body.testId,
                     content: req.body.content,
                 });
@@ -30,6 +50,7 @@ const handler = async (req, res) => {
             // Delete data entry by testId
             try {
                 const deletedData = await DataModel.findOneAndDelete({
+                    user:req.body.user,
                     testId: req.body.testId,
                 });
                 if (deletedData) {
@@ -48,7 +69,7 @@ const handler = async (req, res) => {
             // Update data entry by testId
             try {
                 const updatedData = await DataModel.findOneAndUpdate(
-                    { testId: req.body.testId },
+                    { user:req.body.user,testId: req.body.testId },
                     { content: req.body.content },
                     { new: true }
                 );
