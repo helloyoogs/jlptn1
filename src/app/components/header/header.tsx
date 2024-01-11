@@ -4,7 +4,6 @@ import {useEffect} from "react";
 
 export default function Header() {
     const {data: userData} = useSession();
-    console.log(userData);
     return (
         <header>
             <div className={'header_nav'}>

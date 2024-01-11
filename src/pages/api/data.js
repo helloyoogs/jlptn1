@@ -12,23 +12,22 @@ const handler = async (req, res) => {
 
     switch (req.method) {
         case 'GET':
-            // Delete data entry by testId
             try {
                 const findData = await DataModel.findOne({
-                    user:req.body.user,
-                    testId: req.body.testId,
+                    testId: req.query.testId,
                 });
                 if (findData) {
-                    console.log('Data deleted successfully');
-                    res.status(200).json({ message: 'Data find successfully' });
+                    console.log('Data found successfully');
+                    res.status(200).json(findData);
                 } else {
                     res.status(404).json({ message: 'Data not found' });
                 }
             } catch (error) {
-                console.error('Error find data from MongoDB:', error);
+                console.error('Error finding data from MongoDB:', error);
                 res.status(500).json({ message: 'Internal Server Error' });
             }
             break;
+
         case 'POST':
             // Create a new data entry
             try {

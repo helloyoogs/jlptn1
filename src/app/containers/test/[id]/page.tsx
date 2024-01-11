@@ -6,17 +6,41 @@ import Header from "@/app/components/header/header";
 import Footer from "@/app/components/footer/footer";
 import {useParams} from "next/navigation";
 import {useSession} from "next-auth/react";
+import {isKeyObject} from "util/types";
 
 export default function Page() {
     const id = useParams()?.id;
     const testId = test[Number(id)];
     const {data: session} = useSession();
     const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
-    const [userAnswerData, setUserAnswerData] = useState<number[]>([]);
+    const [userAnswerData, setUserAnswerData] = useState<any[]>([]);
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = useSession().data?.user?.email;
 
+    const handleFindData = async () => {
+        try {
+            const response = await fetch(`/api/data?testId=${testId.id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setUserAnswerData(data)
+            console.log(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    useLayoutEffect(() => {
+        handleFindData();
+    }, []);
     const handleSave = async () => {
         const response = await fetch('/api/data', {
             method: 'POST',
@@ -51,8 +75,9 @@ export default function Page() {
         setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answer}));
     };
     useEffect(() => {
-        console.log(selectedAnswers);
     }, [selectedAnswers]);
+
+    console.log(Object.values(selectedAnswers))
     const RenderQuestionBox = () => {
         return testId.n1?.map((questionSet, setIndex) => (
             <div key={setIndex} className={'question_box'}>
@@ -140,6 +165,9 @@ export default function Page() {
                             </button>
                             <button className={'submit'} onClick={handleSubmit}>
                                 提出
+                            </button>
+                            <button className={'submit'} onClick={handleFindData}>
+                                asd
                             </button>
                         </div>
                         : null
