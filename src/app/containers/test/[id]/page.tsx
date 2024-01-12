@@ -24,6 +24,9 @@ export default function Page() {
     const [userAnswerData, setUserAnswerData] = useState<UserAnswer>();
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = useSession().data?.user?.email;
+    const optionKeys = userAnswerData && Object.keys(userAnswerData.content);
+
+
     const handleFindData = async () => {
         try {
             const response = await fetch(`/api/data?testId=${testId.id}`, {
@@ -79,7 +82,7 @@ export default function Page() {
     };
     useEffect(() => {
     }, [selectedAnswers]);
-    console.log( userAnswerData && Object.keys(userAnswerData.content))
+    console.log( userAnswerData && Object.keys(userAnswerData.content)[0])
     const RenderQuestionBox = () => {
         return testId.n1?.map((questionSet, setIndex) => (
             <div key={setIndex} className={'question_box'}>
@@ -100,6 +103,7 @@ export default function Page() {
                                                         <div className={'question_item'}>
                                                             <div
                                                                 className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 ? 'active' : ''}`}
+                                                                // className={`question_choice_box ${optionKeys?.find((element)=> element === (optionIndex + 1)) ?'a':'b'}`}
                                                                 onClick={() => handleAnswer(question.number, optionIndex + 1)}>
                                                                 <div
                                                                     className={'question_choice_number'}>{optionIndex + 1}</div>
