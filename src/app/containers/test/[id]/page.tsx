@@ -41,9 +41,9 @@ console.log(userAnswerData)
         }
     };
 
-    useLayoutEffect(() => {
-        handleFindData();
-    }, []);
+    // useLayoutEffect(() => {
+    //     handleFindData();
+    // }, []);
     const handleSave = async () => {
         const response = await fetch('/api/data', {
             method: 'POST',
