@@ -16,7 +16,10 @@ export default function Page() {
     const [userAnswerData, setUserAnswerData] = useState<any[]>([]);
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = useSession().data?.user?.email;
+    const userAnswerNumber = Object.keys(userAnswerData)
+    const userAnswer = Object.values(userAnswerData)
 
+console.log(userAnswerData)
     const handleFindData = async () => {
         try {
             const response = await fetch(`/api/data?testId=${testId.id}`, {
@@ -77,7 +80,7 @@ export default function Page() {
     useEffect(() => {
     }, [selectedAnswers]);
 
-    console.log(Object.values(selectedAnswers))
+    // console.log(Object.keys(selectedAnswers))
     const RenderQuestionBox = () => {
         return testId.n1?.map((questionSet, setIndex) => (
             <div key={setIndex} className={'question_box'}>
