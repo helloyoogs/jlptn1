@@ -20,10 +20,9 @@ export default function Page() {
     const testId = test[Number(id)];
     const {data: session} = useSession();
     const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
-    const [userAnswerData, setUserAnswerData] = useState<UserAnswer[]>();
+    const [userAnswerData, setUserAnswerData] = useState<UserAnswer>();
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = useSession().data?.user?.email;
-
     const handleFindData = async () => {
         try {
             const response = await fetch(`/api/data?testId=${testId.id}`, {
@@ -38,7 +37,7 @@ export default function Page() {
             }
 
             const data = await response.json();
-            setUserAnswerData(data)
+            setUserAnswerData(data.content)
             console.log(data);
         } catch (error) {
             console.error('Error fetching data:', error);
