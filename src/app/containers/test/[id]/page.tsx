@@ -20,11 +20,9 @@ export default function Page() {
     const testId = test[Number(id)];
     const {data: session} = useSession();
     const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
-    const [userAnswerData, setUserAnswerData] = useState<UserAnswer[]>([]);
+    const [userAnswerData, setUserAnswerData] = useState<UserAnswer[]>();
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = useSession().data?.user?.email;
-    const userAnswerNumber = Object.keys(userAnswerData[0]?.content || {})
-    const userAnswerValue = Object.values(userAnswerData[0]?.content || {})
 
     const handleFindData = async () => {
         try {
