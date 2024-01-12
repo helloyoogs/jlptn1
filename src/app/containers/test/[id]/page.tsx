@@ -7,19 +7,25 @@ import Footer from "@/app/components/footer/footer";
 import {useParams} from "next/navigation";
 import {useSession} from "next-auth/react";
 import {isKeyObject} from "util/types";
+interface UserAnswer {
+    _id: string;
+    user: string;
+    testId: number;
+    content: { [key: number]: number };
+    __v: number;
+}
 
 export default function Page() {
     const id = useParams()?.id;
     const testId = test[Number(id)];
     const {data: session} = useSession();
     const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
-    const [userAnswerData, setUserAnswerData] = useState<any[]>([]);
+    const [userAnswerData, setUserAnswerData] = useState<UserAnswer[]>([]);
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = useSession().data?.user?.email;
-    const userAnswerNumber = Object.keys(userAnswerData)
-    const userAnswer = Object.values(userAnswerData)
+    const userAnswerNumber = Object.keys(userAnswerData[0]?.content || {})
+    const userAnswerValue = Object.values(userAnswerData[0]?.content || {})
 
-console.log(userAnswerData)
     const handleFindData = async () => {
         try {
             const response = await fetch(`/api/data?testId=${testId.id}`, {
@@ -41,9 +47,9 @@ console.log(userAnswerData)
         }
     };
 
-    // useLayoutEffect(() => {
-    //     handleFindData();
-    // }, []);
+    useLayoutEffect(() => {
+        handleFindData();
+    }, []);
     const handleSave = async () => {
         const response = await fetch('/api/data', {
             method: 'POST',
@@ -74,13 +80,12 @@ console.log(userAnswerData)
     };
 
     const handleAnswer = (questionNumber: number, answer: number) => {
-        console.log('handleAnswer called with questionNumber:', questionNumber, 'and answer:', answer);
         setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answer}));
     };
     useEffect(() => {
     }, [selectedAnswers]);
-
-    // console.log(Object.keys(selectedAnswers))
+    console.log(userAnswerValue)
+    console.log(userAnswerNumber)
     const RenderQuestionBox = () => {
         return testId.n1?.map((questionSet, setIndex) => (
             <div key={setIndex} className={'question_box'}>
