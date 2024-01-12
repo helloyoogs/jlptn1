@@ -82,8 +82,6 @@ export default function Page() {
     };
     useEffect(() => {
     }, [selectedAnswers]);
-    console.log(userAnswerValue)
-    console.log(userAnswerNumber)
     const RenderQuestionBox = () => {
         return testId.n1?.map((questionSet, setIndex) => (
             <div key={setIndex} className={'question_box'}>
