@@ -13,5 +13,5 @@ export default NextAuth({
             clientSecret: googleClientSecret,
         }),
     ],
-    // Add any additional configurations here
+    secret:process.env.NEXTAUTH_SECRET
 });
