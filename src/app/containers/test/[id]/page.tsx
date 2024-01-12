@@ -14,6 +14,7 @@ interface UserAnswer {
     content: { [key: number]: number };
     __v: number;
 }
+{/* todo: 리팩토링,오답문제 보는 페이지,임시 저장한 페이지 해당 문제 들어가면 풀던 그대로 보여주기,제출하기 누르면 임시저장한 데이터는 오답문제 데이터로 */}
 
 export default function Page() {
     const id = useParams()?.id;
@@ -38,14 +39,12 @@ export default function Page() {
 
             const data = await response.json();
             setUserAnswerData(data)
-            console.log(data);
-            console.log(data.content);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         handleFindData();
     }, []);
     const handleSave = async () => {
@@ -57,7 +56,6 @@ export default function Page() {
             body: JSON.stringify({user: userEmail, testId: testId.id, content: selectedAnswers}),
         });
         const data = await response.json();
-        console.log(data);
     };
 
     const handleSubmit = async () => {
@@ -71,7 +69,6 @@ export default function Page() {
             });
 
             const data = await response.json();
-            console.log(data);
         } else {
             alert('문제를 전부 풀어주세요!');
         }
@@ -82,6 +79,7 @@ export default function Page() {
     };
     useEffect(() => {
     }, [selectedAnswers]);
+    console.log( userAnswerData && Object.keys(userAnswerData.content))
     const RenderQuestionBox = () => {
         return testId.n1?.map((questionSet, setIndex) => (
             <div key={setIndex} className={'question_box'}>
