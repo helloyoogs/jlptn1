@@ -28,10 +28,13 @@ export default function Page() {
     const [userAnswerData, setUserAnswerData] = useState<UserAnswer>();
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = useSession().data?.user?.email;
-    const keys = userAnswerData && Object.keys(userAnswerData.content).map(Number);
+    const userAnswerDataKeys = Object.keys(userAnswerData?.content || {}).map(Number);
+    const userAnswerDataValues = Object.values(userAnswerData?.content || {}).map(Number);
 
-    console.log(userAnswerData)
-    console.log(keys)
+    console.log(userAnswerData);
+    console.log(userAnswerDataKeys);
+    console.log(userAnswerDataValues);
+
     const handleFindData = async () => {
         try {
             const response = await fetch(`/api/data?testId=${testId.id}`, {
@@ -103,13 +106,11 @@ export default function Page() {
                                         <>
                                             <div className={'question_item_wrap'}>
                                                 {question.options?.slice(0, 2).map((option: string | React.ReactNode, optionIndex: number) => {
-                                                    const userAnswerDataKeys = userAnswerData && Object.keys(userAnswerData.content);
-
                                                     return (
                                                         <Fragment key={optionIndex}>
                                                             <div className={'question_item'}>
                                                                 <div
-                                                                    className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 ? 'active' : ''}`}
+                                                                    className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 || userAnswerDataKeys.includes(optionIndex + 1) ? 'active' : ''}`}
                                                                     onClick={() => handleAnswer(question.number, optionIndex + 1)}>
                                                                     <div
                                                                         className={'question_choice_number'}>{optionIndex + 1}</div>
