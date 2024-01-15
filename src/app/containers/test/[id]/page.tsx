@@ -28,11 +28,23 @@ export default function Page() {
     const [userAnswerData, setUserAnswerData] = useState<UserAnswer>();
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = useSession().data?.user?.email;
-    const userAnswerDataContentKeys = userAnswerData && Object.keys(userAnswerData?.content);
+    const userAnswerDataContentKeys: { [key: number]: number } = userAnswerData?.content && Array.isArray(userAnswerData.content)
+        ? userAnswerData.content.reduce((obj, key) => {
+            obj[key] = key;
+            return obj;
+        }, {})
+        : {};
 
-    console.log(userAnswerData)
+    const userAnswerDataContentValues: { [key: number]: number } = userAnswerData?.content && Array.isArray(userAnswerData.content)
+        ? userAnswerData.content.reduce((obj, value) => {
+            obj[value] = value;
+            return value;
+        }, {})
+        : {};
+
 
     console.log(userAnswerDataContentKeys)
+    console.log(userAnswerDataContentValues)
 
     const handleFindData = async () => {
         try {
