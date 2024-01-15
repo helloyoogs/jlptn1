@@ -7,8 +7,6 @@ import Footer from "@/app/components/footer/footer";
 import {useParams} from "next/navigation";
 import {useSession} from "next-auth/react";
 import {isKeyObject} from "util/types";
-import {element} from "prop-types";
-
 interface UserAnswer {
     _id: string;
     user: string;
@@ -16,9 +14,7 @@ interface UserAnswer {
     content: { [key: number]: number };
     __v: number;
 }
-
-{/* todo: 리팩토링,오답문제 보는 페이지,임시 저장한 페이지 해당 문제 들어가면 풀던 그대로 보여주기,제출하기 누르면 임시저장한 데이터는 오답문제 데이터로 */
-}
+{/* todo: 리팩토링,오답문제 보는 페이지,임시 저장한 페이지 해당 문제 들어가면 풀던 그대로 보여주기,제출하기 누르면 임시저장한 데이터는 오답문제 데이터로 */}
 
 export default function Page() {
     const id = useParams()?.id;
@@ -30,10 +26,6 @@ export default function Page() {
     const userEmail = useSession().data?.user?.email;
     const userAnswerDataKeys = Object.keys(userAnswerData?.content || {}).map(Number);
     const userAnswerDataValues = Object.values(userAnswerData?.content || {}).map(Number);
-
-    console.log(userAnswerData);
-    console.log(userAnswerDataKeys);
-    console.log(userAnswerDataValues);
 
     const handleFindData = async () => {
         try {
@@ -90,6 +82,7 @@ export default function Page() {
     };
     useEffect(() => {
     }, [selectedAnswers]);
+    console.log( userAnswerData && Object.keys(userAnswerData.content)[0])
     const RenderQuestionBox = () => {
         return testId.n1?.map((questionSet, setIndex) => (
             <div key={setIndex} className={'question_box'}>
@@ -105,64 +98,52 @@ export default function Page() {
                                     {question.line === 2 ?
                                         <>
                                             <div className={'question_item_wrap'}>
-                                                {question.options?.slice(0, 2).map((option: string | React.ReactNode, optionIndex: number) => {
-                                                    console.log(userAnswerDataKeys.includes(optionIndex + 1)?'ㄴ':'ㅕ')
-                                                    return (
-                                                        <Fragment key={optionIndex}>
-                                                            <div className={'question_item'}>
+                                                {question.options?.slice(0, 2).map((option: string | React.ReactNode, optionIndex: number) => (
+                                                    <Fragment key={optionIndex}>
+                                                        <div className={'question_item'}>
+                                                            <div
+                                                                // className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 ? 'active' : ''}`}
+                                                            className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 || userAnswerDataKeys.includes(optionIndex + 1) ? 'active' : ''}`}                                                                onClick={() => handleAnswer(question.number, optionIndex + 1)}>
                                                                 <div
-                                                                    // className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 || userAnswerDataKeys.includes(optionIndex + 1) ? 'active' : ''}`}
-                                                                    className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1}`}
-                                                                    onClick={() => handleAnswer(question.number, optionIndex + 1)}>
-                                                                    <div
-                                                                        className={'question_choice_number'}>{optionIndex + 1}</div>
-                                                                    <div className={'question_choice_text'}>
-                                                                        {option}
-                                                                    </div>
+                                                                    className={'question_choice_number'}>{optionIndex + 1}</div>
+                                                                <div className={'question_choice_text'}>
+                                                                    {option}
                                                                 </div>
                                                             </div>
-                                                        </Fragment>
-                                                    );
-                                                })}
-                                                {question.options?.slice(2, 4).map((option: string | React.ReactNode, optionIndex: number) => {
-                                                    return (
-                                                        <Fragment key={optionIndex}>
-                                                            <div className={'question_item'}>
-                                                                <div
-                                                                    className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 ? 'active' : ''}`}
-                                                                    onClick={() => handleAnswer(question.number, optionIndex + 3)}>
-                                                                    <div className={"question_choice_number"}>
-                                                                        {optionIndex + 3}
-                                                                    </div>
-                                                                    <div
-                                                                        className={'question_choice_text'}>{option}</div>
-                                                                </div>
-                                                            </div>
-                                                        </Fragment>
-                                                    );
-                                                })}
-
-                                            </div>
-                                        </>
-                                        :
-                                        <>
-                                            {question.options?.slice(2, 4).map((option: string | React.ReactNode, optionIndex: number) => {
-                                                return (
+                                                        </div>
+                                                    </Fragment>
+                                                ))}
+                                                {question.options?.slice(2, 4).map((option: string | React.ReactNode, optionIndex: number) => (
                                                     <Fragment key={optionIndex}>
                                                         <div className={'question_item'}>
                                                             <div
                                                                 className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 ? 'active' : ''}`}
                                                                 onClick={() => handleAnswer(question.number, optionIndex + 3)}>
                                                                 <div className={"question_choice_number"}>
-                                                                    {optionIndex + 3}
-                                                                </div>
+                                                                    {optionIndex + 3}</div>
                                                                 <div className={'question_choice_text'}>{option}</div>
                                                             </div>
                                                         </div>
                                                     </Fragment>
-                                                );
-                                            })}
-
+                                                ))}
+                                            </div>
+                                        </>
+                                        :
+                                        <>
+                                            {question.options?.map((option: string | React.ReactNode, optionIndex: number) => (
+                                                <Fragment key={optionIndex}>
+                                                    <div className={'question_item'}>
+                                                        <div
+                                                            className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 ? 'active' : ''}`}
+                                                            onClick={() => handleAnswer(question.number, optionIndex + 1)}>
+                                                            <div className={"question_choice_number"}>
+                                                                {optionIndex + 1}
+                                                            </div>
+                                                            <div className={'question_choice_text'}>{option}</div>
+                                                        </div>
+                                                    </div>
+                                                </Fragment>
+                                            ))}
                                         </>
                                     }
                                 </div>
