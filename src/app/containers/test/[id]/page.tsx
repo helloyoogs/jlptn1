@@ -51,9 +51,9 @@ export default function Page() {
         }
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         handleFindData();
-    }, );
+    }, []);
     const handleSave = async () => {
         const response = await fetch('/api/data', {
             method: 'POST',
