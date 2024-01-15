@@ -28,9 +28,10 @@ export default function Page() {
     const [userAnswerData, setUserAnswerData] = useState<UserAnswer>();
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = useSession().data?.user?.email;
+    const keys = userAnswerData && Object.keys(userAnswerData.content).map(Number);
 
     console.log(userAnswerData)
-
+    console.log(keys)
     const handleFindData = async () => {
         try {
             const response = await fetch(`/api/data?testId=${testId.id}`, {
