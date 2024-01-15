@@ -67,7 +67,6 @@ export default function Page() {
     };
 
     const handleSubmit = async () => {
-        if (questionLength === selectedAnswers.length) {
             const response = await fetch('/api/data', {
                 method: 'POST',
                 headers: {
@@ -77,9 +76,6 @@ export default function Page() {
             });
 
             const data = await response.json();
-        } else {
-            alert('문제를 전부 풀어주세요!');
-        }
     };
 
     const handleAnswer = (questionNumber: number, answer: number) => {
@@ -174,19 +170,18 @@ export default function Page() {
                         <div className={'question_box_wrap_name'}>{testId.name}</div>
                         {RenderQuestionBox()}
                     </div>
-                    {session ?
+                    {session &&
                         <div className={'save_box'}>
                             {questionLength === Object.keys(selectedAnswers).length?
                                 <button className={'submit'} onClick={handleSubmit}>
-                                    提出{questionLength}
+                                    提出
                                 </button>
                                 :
                                 <button className={'save'} onClick={handleSave}>
-                                臨時貯蔵{Object.keys(selectedAnswers).length}
+                                臨時貯蔵
                                 </button>
                             }
                         </div>
-                        : null
                     }
                 </div>
                 <Footer/>
