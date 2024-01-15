@@ -110,10 +110,11 @@ export default function Page() {
                                                         <Fragment key={optionIndex}>
                                                             <div className={'question_item'}>
                                                                 <div
-                                                                    className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 || userAnswerDataKeys.includes(optionIndex + 1) ? 'active' : ''}`}
+                                                                    // className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 || userAnswerDataKeys.includes(optionIndex + 1) ? 'active' : ''}`}
+                                                                    className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1}`}
                                                                     onClick={() => handleAnswer(question.number, optionIndex + 1)}>
                                                                     <div
-                                                                        className={'question_choice_number'}>{optionIndex + 1}</div>
+                                                                        className={'question_choice_number'}>{optionIndex + 1}{userAnswerDataKeys.includes(optionIndex + 1)?'ㄴ':'ㅕ'}</div>
                                                                     <div className={'question_choice_text'}>
                                                                         {option}
                                                                     </div>
