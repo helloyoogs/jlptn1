@@ -61,7 +61,7 @@ export default function Page() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({user: userEmail, testId: testId.id, content: selectedAnswers}),
+            body: JSON.stringify({user: userEmail, testId: testId.id, content: selectedAnswers, submit: false}),
         });
         const data = await response.json();
     };
@@ -72,7 +72,7 @@ export default function Page() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({user: userEmail, testId: testId.id, content: selectedAnswers, submit: false}),
+                body: JSON.stringify({user: userEmail, testId: testId.id, content: selectedAnswers, submit: true}),
             });
 
             const data = await response.json();
