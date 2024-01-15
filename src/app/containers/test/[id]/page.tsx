@@ -106,6 +106,7 @@ export default function Page() {
                                         <>
                                             <div className={'question_item_wrap'}>
                                                 {question.options?.slice(0, 2).map((option: string | React.ReactNode, optionIndex: number) => {
+                                                    console.log(userAnswerDataKeys.includes(optionIndex + 1)?'ㄴ':'ㅕ')
                                                     return (
                                                         <Fragment key={optionIndex}>
                                                             <div className={'question_item'}>
@@ -114,7 +115,7 @@ export default function Page() {
                                                                     className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1}`}
                                                                     onClick={() => handleAnswer(question.number, optionIndex + 1)}>
                                                                     <div
-                                                                        className={'question_choice_number'}>{optionIndex + 1}{userAnswerDataKeys.includes(optionIndex + 1)?'ㄴ':'ㅕ'}</div>
+                                                                        className={'question_choice_number'}>{optionIndex + 1}</div>
                                                                     <div className={'question_choice_text'}>
                                                                         {option}
                                                                     </div>
