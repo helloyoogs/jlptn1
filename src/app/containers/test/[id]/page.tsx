@@ -53,7 +53,7 @@ export default function Page() {
 
     useEffect(() => {
         handleFindData();
-    }, []);
+    }, );
     const handleSave = async () => {
         const response = await fetch('/api/data', {
             method: 'POST',
@@ -103,7 +103,6 @@ export default function Page() {
                                         <>
                                             <div className={'question_item_wrap'}>
                                                 {question.options?.slice(0, 2).map((option: string | React.ReactNode, optionIndex: number) => (
-                                                    <>
                                                         <Fragment key={optionIndex}>
                                                             <div className={'question_item'}>
                                                                 <div
@@ -117,7 +116,6 @@ export default function Page() {
                                                                 </div>
                                                             </div>
                                                         </Fragment>
-                                                    </>
                                                 ))}
                                                 {question.options?.slice(2, 4).map((option: string | React.ReactNode, optionIndex: number) => (
                                                     <Fragment key={optionIndex}>
