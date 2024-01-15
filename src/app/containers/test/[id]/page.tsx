@@ -27,10 +27,11 @@ export default function Page() {
     const [userAnswerData, setUserAnswerData] = useState<UserAnswer>();
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = useSession().data?.user?.email;
+    const userAnswerDataContent = userAnswerData?.content || {}
     const userAnswerDataKeys = Object.keys(userAnswerData?.content || {}).map(Number);
     const userAnswerDataValues = Object.values(userAnswerData?.content || {}).map(Number);
 
-    console.log(userAnswerDataKeys);
+    console.log(userAnswerDataContent);
 
     const handleFindData = async () => {
         try {
@@ -108,7 +109,7 @@ export default function Page() {
                                                         <Fragment key={optionIndex}>
                                                             <div className={'question_item'}>
                                                                 <div
-                                                                    className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 || userAnswerDataKeys.includes(question.number) && userAnswerDataValues.includes(optionIndex + 1) ? 'active' : ''}`}
+                                                                    className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 || userAnswerDataContent[question.number] === optionIndex + 1 ? 'active' : ''}`}
                                                                     onClick={() => handleAnswer(question.number, optionIndex + 1)}>
                                                                     <div
                                                                         className={'question_choice_number'}>{optionIndex + 1}</div>
@@ -124,7 +125,7 @@ export default function Page() {
                                                     <Fragment key={optionIndex}>
                                                         <div className={'question_item'}>
                                                             <div
-                                                                className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 3 || userAnswerDataKeys.includes(question.number) && userAnswerDataValues.includes(optionIndex + 3) ? 'active' : ''}`}
+                                                                className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 3 || userAnswerDataContent[question.number] === optionIndex + 3 ? 'active' : ''}`}
                                                                 onClick={() => handleAnswer(question.number, optionIndex + 3)}>
                                                                 <div className={"question_choice_number"}>
                                                                     {optionIndex + 3}</div>
@@ -141,7 +142,7 @@ export default function Page() {
                                                 <Fragment key={optionIndex}>
                                                     <div className={'question_item'}>
                                                         <div
-                                                            className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 || userAnswerDataKeys.includes(question.number) && userAnswerDataValues.includes(optionIndex + 1) ? 'active' : ''}`}
+                                                            className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 ||  userAnswerDataContent[question.number] === optionIndex + 1 ? 'active' : ''}`}
                                                             onClick={() => handleAnswer(question.number, optionIndex + 1)}>
                                                             <div className={"question_choice_number"}>
                                                                 {optionIndex + 1}
