@@ -29,6 +29,8 @@ export default function Page() {
     const userEmail = useSession().data?.user?.email;
     const userAnswerDataKeys = Object.keys(userAnswerData?.content || {}).map(Number);
 
+    console.log(userAnswerDataKeys);
+
     const handleFindData = async () => {
         try {
             const response = await fetch(`/api/data?testId=${testId.id}`, {
