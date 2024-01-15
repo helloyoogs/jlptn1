@@ -2083,7 +2083,7 @@ export const test = [
                     },
                     {
                         number: 35,
-                        line: null,
+                        line: 2,
                         q: (
                             <>
                                 {rubyBox('山下', 'やました')}

@@ -101,7 +101,7 @@ text-indent: -20px;
 .test_container  .question_choice_box{
     cursor: pointer;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     gap: 2px;
     width: fit-content;
 }

@@ -5,6 +5,7 @@ const DataModel = mongoose.model('test', {
     user:String,
     testId: Number,
     content: Object,
+    submit:Boolean
 });
 
 const handler = async (req, res) => {
@@ -29,12 +30,12 @@ const handler = async (req, res) => {
             break;
 
         case 'POST':
-            // Create a new data entry
             try {
                 const data = new DataModel({
                     user:req.body.user,
                     testId: req.body.testId,
                     content: req.body.content,
+                    submit:req.body.submit
                 });
                 await data.save();
                 console.log('Data saved successfully');
