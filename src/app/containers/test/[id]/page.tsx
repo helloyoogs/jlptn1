@@ -26,6 +26,9 @@ export default function Page() {
     const userEmail = useSession().data?.user?.email;
     const userAnswerDataKeys = Object.keys(userAnswerData?.content || {}).map(Number);
     const userAnswerDataValues = Object.values(userAnswerData?.content || {}).map(Number);
+    console.log(userAnswerData);
+    console.log(userAnswerDataKeys);
+    console.log(userAnswerDataValues);
 
     const handleFindData = async () => {
         try {
@@ -82,7 +85,7 @@ export default function Page() {
     };
     useEffect(() => {
     }, [selectedAnswers]);
-    console.log( userAnswerData && Object.keys(userAnswerData.content)[0])
+
     const RenderQuestionBox = () => {
         return testId.n1?.map((questionSet, setIndex) => (
             <div key={setIndex} className={'question_box'}>
