@@ -108,7 +108,19 @@ export default function Page() {
 console.log(Object.keys(userAnswerDataContent))
     console.log(Object.keys(selectedAnswers))
 
+    const mergeArrays = (obj1:any, obj2:any) => {
+        const result = { ...obj1 };
 
+        for (const key in obj2) {
+            if (result.hasOwnProperty(key)) {
+                result[key] += obj2[key];
+            } else {
+                result[key] = obj2[key];
+            }
+        }
+
+        return result;
+    }
     const handleSubmit = async () => {
             if (userAnswerData) {
                 const response = await fetch(`/api/testData?testId=${testId.id}`, {
@@ -116,7 +128,7 @@ console.log(Object.keys(userAnswerDataContent))
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
+                    body: JSON.stringify({ content: mergeArrays(selectedAnswers,userAnswerDataContent), submit: false }),
                 });
 
                 if (!response.ok) {
