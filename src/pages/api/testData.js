@@ -1,7 +1,7 @@
 'use client';
 import connectDB from './db';
 import mongoose from 'mongoose';
-import {useSession} from "next-auth/react";
+import { getSession } from 'next-auth/react'
 
 const DataModel = mongoose.model('test', {
     user:String,
@@ -9,19 +9,16 @@ const DataModel = mongoose.model('test', {
     content: Object,
     submit:Boolean
 });
-const getUserEmail = () => {
-    const session = useSession();
-    return session.data?.user?.email || null;
-};
+
 const handler = async (req, res) => {
     await connectDB();
-    const userEmail = getUserEmail();
+    const session = await getSession({ req })
 
     switch (req.method) {
         case 'GET':
             try {
                 const findData = await DataModel.findOne({
-                    user: userEmail,
+                    user: session.user,
                     testId: req.body.testId,
                     submit:false
                 });
@@ -40,7 +37,7 @@ const handler = async (req, res) => {
         case 'POST':
             try {
                 const data = new DataModel({
-                    user: userEmail,
+                    user: session.user,
                     testId: req.body.testId,
                     content: req.body.content,
                     submit:req.body.submit
@@ -57,7 +54,7 @@ const handler = async (req, res) => {
         case 'DELETE':
             try {
                 const deletedData = await DataModel.findOneAndDelete({
-                    user: userEmail,
+                    user: session.user,
                     testId: req.body.testId,
                 });
                 if (deletedData) {
@@ -75,7 +72,7 @@ const handler = async (req, res) => {
         case 'PUT':
             try {
                 const updatedData = await DataModel.findOneAndUpdate(
-                    { user: userEmail,
+                    { user: session.user,
                     testId: req.body.testId, submit:false },
                     { content: req.body.content,submit:req.body.submit },
                     { new: true }
