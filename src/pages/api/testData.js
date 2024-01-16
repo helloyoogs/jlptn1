@@ -10,11 +10,9 @@ const DataModel = mongoose.model('test', {
     content: Object,
     submit:Boolean
 });
-
+const userEmail = useSession().data?.user?.email;
 const handler = async (req, res) => {
     await connectDB();
-    const {data: session} = useSession();
-    const userEmail = useSession().data?.user?.email;
 
     switch (req.method) {
         case 'GET':
