@@ -57,15 +57,6 @@ export default function Page() {
     }, []);
     const handleSave = async () => {
         if(userAnswerData){
-            const response = await fetch('/api/testData', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({testId: testId.id, content: selectedAnswers, submit: false}),
-            });
-            const data = await response.json();
-        } else{
             const response = await fetch(`/api/testData?testId=${testId.id}`, {
                 method: 'PUT',
                 headers: {
@@ -74,26 +65,35 @@ export default function Page() {
                 body: JSON.stringify({content: selectedAnswers, submit: false}),
             });
             const data = await response.json();
-        }
-    };
-
-    const handleSubmit = async () => {
-        if(userAnswerData){
+        } else{
             const response = await fetch('/api/testData', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({testId: testId.id, content: selectedAnswers, submit: true}),
+                body: JSON.stringify({testId: testId.id, content: selectedAnswers, submit: false}),
             });
             const data = await response.json();
-        } else{
+        }
+    };
+
+    const handleSubmit = async () => {
+        if(userAnswerData){
             const response = await fetch(`/api/testData?testId=${testId.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({content: selectedAnswers, submit: true}),
+            });
+            const data = await response.json();
+        } else{
+            const response = await fetch('/api/testData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({testId: testId.id, content: selectedAnswers, submit: true}),
             });
             const data = await response.json();
         }
