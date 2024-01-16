@@ -29,10 +29,11 @@ export default function Page() {
     const userEmail = useSession().data?.user?.email;
     const userAnswerDataContent = userAnswerData?.content || {}
     console.log(userAnswerData);
-
+console.log(userEmail)
+    console.log(data)
     const handleFindData = async () => {
         try {
-            const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}&submit=${false}`, {
+            const response = await fetch(`/api/testData?testId=${testId.id}&user=${session?.user?.email}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
