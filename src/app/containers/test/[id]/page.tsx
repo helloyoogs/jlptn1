@@ -79,7 +79,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: userAnswerDataContent?userAnswerDataContent:selectedAnswers, submit: false }),
+                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -114,7 +114,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: userAnswerDataContent?userAnswerDataContent:selectedAnswers, submit: false }),
+                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -141,8 +141,9 @@ export default function Page() {
             }
 
     };
-
     const handleAnswer = (questionNumber: number, answer: number) => {
+        console.log(userAnswerDataContent[questionNumber])
+
         setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answer}));
 
     };
