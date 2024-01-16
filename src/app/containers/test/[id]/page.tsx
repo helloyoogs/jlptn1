@@ -1,5 +1,5 @@
 'use client';
-import React, {Fragment, useEffect, useLayoutEffect, useState} from "react";
+import React, {Fragment, useEffect, useLayoutEffect, useMemo, useState} from "react";
 import {test} from "@/app/constants/const";
 import './test.css'
 import Header from "@/app/components/header/header";
@@ -28,9 +28,11 @@ export default function Page() {
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = session?.user?.email;
     const userAnswerDataContent = userAnswerData?.content || {}
+    const fetchUrl = useMemo(() => `/api/testData?testId=${testId.id}`, [testId.id]);
+
     useLayoutEffect(() => {
         if (userEmail) {
-            fetch(`/api/testData?testId=${testId.id}`, {
+            fetch(fetchUrl, {
                 method: "GET"
             })
                 .then((res) => res.json())
@@ -39,7 +41,8 @@ export default function Page() {
                     setUserAnswerData(res);
                 });
         }
-    }, [userEmail]);
+    }, [fetchUrl, userEmail]);
+
 
     const handleFindData = async () => {
         try {
