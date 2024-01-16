@@ -56,26 +56,43 @@ export default function Page() {
         handleFindData();
     }, []);
     const handleSave = async () => {
-        if(userAnswerData){
-            const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({content: selectedAnswers, submit: false}),
-            });
-            const data = await response.json();
-        } else{
-            const response = await fetch('/api/testData', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({user:userEmail,testId: testId.id, content: selectedAnswers, submit: false}),
-            });
-            const data = await response.json();
+        try {
+            if (userAnswerData) {
+                const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Data saved successfully:', data);
+            } else {
+                const response = await fetch('/api/testData', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ user: userEmail, testId: testId.id, content: selectedAnswers, submit: false }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Data saved successfully:', data);
+            }
+        } catch (error) {
+            console.error('Error handling save:', error);
         }
     };
+
 
     const handleSubmit = async () => {
         if(userAnswerData){
