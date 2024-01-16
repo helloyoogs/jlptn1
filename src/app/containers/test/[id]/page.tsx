@@ -30,7 +30,7 @@ export default function Page() {
     const userAnswerDataContent = userAnswerData?.content || {}
     useEffect(() => {
         if (userEmail) {
-            fetch(`/api/testData?testId=${testId}`, {
+            fetch(`/api/testData?testId=${testId.id}`, {
                 method: "GET"
             })
                 .then((res) => res.json())
