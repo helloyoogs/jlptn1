@@ -35,7 +35,7 @@ export default function Page() {
             console.log(1, res);
             setUserAnswerData(res)
         });
-    }, []);
+    }, [session]);
 
 
     const handleFindData = async () => {
