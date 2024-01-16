@@ -22,33 +22,23 @@ interface UserAnswer {
 export default function Page() {
     const id = useParams()?.id;
     const testId = test[Number(id)];
-    const {data: session} = useSession();
+    const {data: session, status} = useSession();
     const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
     const [userAnswerData, setUserAnswerData] = useState<UserAnswer>();
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
-    const userEmail = useSession().data?.user?.email;
+    const userEmail = session?.user?.email;
     const userAnswerDataContent = userAnswerData?.content || {}
-    console.log(userAnswerData);
-console.log(userEmail)
-    console.log(session?.user?.email)
+
+    console.log(userEmail)
     const handleFindData = async () => {
-        try {
-            const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
+            const response = await fetch(`/api/testData?testId=${testId.id}&user=helloyoogs@gmail.com`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setUserAnswerData(data)
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+        const data = await response.json();
+        console.log('Data saved successfully:', data);
     };
 
     useEffect(() => {
@@ -120,7 +110,6 @@ console.log(userEmail)
     const handleAnswer = (questionNumber: number, answer: number) => {
         setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answer}));
     };
-    console.log(Object.keys(selectedAnswers).length)
 
 
     useEffect(() => {
