@@ -109,17 +109,13 @@ console.log(Object.keys(userAnswerDataContent))
     console.log(Object.keys(selectedAnswers))
 
     const mergeArrays = (obj1:any, obj2:any) => {
-        const result = { ...obj1 };
+        let mergedArray = Object.assign({}, obj1);
 
-        for (const key in obj2) {
-            if (result.hasOwnProperty(key)) {
-                result[key] += obj2[key];
-            } else {
-                result[key] = obj2[key];
+        for (let key in obj2) {
+            if (!obj1.hasOwnProperty(key)) {
+                mergedArray[key] = obj2[key];
             }
         }
-
-        return result;
     }
     const handleSubmit = async () => {
             if (userAnswerData) {
