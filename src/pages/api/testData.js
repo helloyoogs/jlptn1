@@ -9,15 +9,19 @@ const DataModel = mongoose.model('test', {
     content: Object,
     submit:Boolean
 });
-
+const useUserEmail = () => {
+    const session = useSession();
+    return session.data?.user?.email || null;
+};
 const handler = async (req, res) => {
     await connectDB();
+    const userEmail = useUserEmail();
 
     switch (req.method) {
         case 'GET':
             try {
                 const findData = await DataModel.findOne({
-                    user: useSession().data?.user?.email,
+                    user: userEmail,
                     testId: req.body.testId,
                     submit:false
                 });
@@ -36,7 +40,7 @@ const handler = async (req, res) => {
         case 'POST':
             try {
                 const data = new DataModel({
-                    user:req.body.user,
+                    user: userEmail,
                     testId: req.body.testId,
                     content: req.body.content,
                     submit:req.body.submit
@@ -53,7 +57,7 @@ const handler = async (req, res) => {
         case 'DELETE':
             try {
                 const deletedData = await DataModel.findOneAndDelete({
-                    user: useSession().data?.user?.email,
+                    user: userEmail,
                     testId: req.body.testId,
                 });
                 if (deletedData) {
@@ -71,7 +75,7 @@ const handler = async (req, res) => {
         case 'PUT':
             try {
                 const updatedData = await DataModel.findOneAndUpdate(
-                    { user: useSession().data?.user?.email,
+                    { user: userEmail,
                     testId: req.body.testId, submit:false },
                     { content: req.body.content,submit:req.body.submit },
                     { new: true }
