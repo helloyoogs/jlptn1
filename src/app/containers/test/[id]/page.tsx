@@ -29,6 +29,8 @@ export default function Page() {
     const userEmail = session?.user?.email;
     const userAnswerDataContent = userAnswerData?.content || {}
 
+    console.log(userAnswerData)
+
     useLayoutEffect(() => {
         if (userEmail) {
             fetch(`/api/testData?testId=${testId.id}`, {
