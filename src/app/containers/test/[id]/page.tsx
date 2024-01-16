@@ -105,6 +105,8 @@ export default function Page() {
                 console.log('Data saved successfully:', data);
             }
     };
+console.log(Object.keys(userAnswerDataContent))
+    console.log(Object.keys(selectedAnswers))
 
 
     const handleSubmit = async () => {
