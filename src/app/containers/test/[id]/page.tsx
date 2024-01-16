@@ -22,21 +22,24 @@ interface UserAnswer {
 export default function Page() {
     const id = useParams()?.id;
     const testId = test[Number(id)];
-    const {data: session, status} = useSession();
+    const {data: session} = useSession();
     const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
     const [userAnswerData, setUserAnswerData] = useState<UserAnswer>();
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = session?.user?.email;
     const userAnswerDataContent = userAnswerData?.content || {}
-    useEffect(()=> {
-        fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
-            method : "GET"
-        }).then(res=>res.json()).then(res=>{
-            console.log(1, res);
-            setUserAnswerData(res)
-        });
-    }, [session]);
-
+    useEffect(() => {
+        if (userEmail) {
+            fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
+                method: "GET"
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    console.log(1, res);
+                    setUserAnswerData(res);
+                });
+        }
+    }, [selectedAnswers, userEmail]);
 
     const handleFindData = async () => {
         try {
@@ -125,7 +128,6 @@ export default function Page() {
     const handleAnswer = (questionNumber: number, answer: number) => {
         setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answer}));
     };
-    console.log(Object.keys(selectedAnswers).length)
 
 
     useEffect(() => {
