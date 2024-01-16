@@ -142,10 +142,8 @@ export default function Page() {
 
     };
     const handleAnswer = (questionNumber: number, answer: number) => {
-        console.log(userAnswerDataContent[questionNumber])
-
-        setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answer}));
-
+        const answerData = answer ? answer: userAnswerDataContent[questionNumber];
+        return setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answerData}));
     };
 
 
