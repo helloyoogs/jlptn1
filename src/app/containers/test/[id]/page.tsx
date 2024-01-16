@@ -28,11 +28,10 @@ export default function Page() {
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = session?.user?.email;
     const userAnswerDataContent = userAnswerData?.content || {}
-    const fetchUrl = useMemo(() => `/api/testData?testId=${testId.id}`, [testId.id]);
 
     useLayoutEffect(() => {
         if (userEmail) {
-            fetch(fetchUrl, {
+            fetch(`/api/testData?testId=${testId.id}`, {
                 method: "GET"
             })
                 .then((res) => res.json())
@@ -41,8 +40,7 @@ export default function Page() {
                     setUserAnswerData(res);
                 });
         }
-    }, [fetchUrl, userEmail]);
-
+    }, [userEmail]);
 
     const handleFindData = async () => {
         try {
@@ -73,7 +71,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: userAnswerDataContent?userAnswerDataContent:selectedAnswers, submit: false }),
+                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -88,7 +86,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ user: userEmail, testId: testId.id, content: userAnswerDataContent?userAnswerDataContent:selectedAnswers, submit: false }),
+                    body: JSON.stringify({ user: userEmail, testId: testId.id, content: selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -112,7 +110,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: userAnswerDataContent?userAnswerDataContent:selectedAnswers, submit: false }),
+                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -127,7 +125,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ user: userEmail, testId: testId.id, content: userAnswerDataContent?userAnswerDataContent:selectedAnswers, submit: true }),
+                    body: JSON.stringify({ user: userEmail, testId: testId.id, content: selectedAnswers, submit: true }),
                 });
 
                 if (!response.ok) {
