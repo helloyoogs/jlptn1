@@ -79,7 +79,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
+                    body: JSON.stringify({ content: mergeArrays(selectedAnswers,userAnswerDataContent), submit: false }),
                 });
 
                 if (!response.ok) {
