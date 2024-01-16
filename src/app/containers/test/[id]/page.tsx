@@ -34,7 +34,7 @@ export default function Page() {
 
     const handleFindData = async () => {
         try {
-            const response = await fetch(`/api/testData?testId=${testId.id}`, {
+            const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export default function Page() {
     }, []);
     const handleSave = async () => {
         if(userAnswerData){
-            const response = await fetch(`/api/testData?testId=${testId.id}`, {
+            const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export default function Page() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({testId: testId.id, content: selectedAnswers, submit: false}),
+                body: JSON.stringify({user:userEmail,testId: testId.id, content: selectedAnswers, submit: false}),
             });
             const data = await response.json();
         }
@@ -79,7 +79,7 @@ export default function Page() {
 
     const handleSubmit = async () => {
         if(userAnswerData){
-            const response = await fetch(`/api/testData?testId=${testId.id}`, {
+            const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ export default function Page() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({testId: testId.id, content: selectedAnswers, submit: true}),
+                body: JSON.stringify({user:userEmail,testId: testId.id, content: selectedAnswers, submit: true}),
             });
             const data = await response.json();
         }
