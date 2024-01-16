@@ -32,7 +32,7 @@ export default function Page() {
 
     const handleFindData = async () => {
         try {
-            const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
+            const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}&submit=${false}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
