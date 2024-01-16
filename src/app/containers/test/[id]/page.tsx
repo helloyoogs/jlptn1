@@ -28,6 +28,15 @@ export default function Page() {
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = session?.user?.email;
     const userAnswerDataContent = userAnswerData?.content || {}
+    useEffect(()=> {
+        fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
+            method : "GET"
+        }).then(res=>res.json()).then(res=>{
+            console.log(1, res);
+            setUserAnswerData(res)
+        });
+    }, []);
+
 
     const handleFindData = async () => {
         try {
@@ -49,9 +58,7 @@ export default function Page() {
         }
     };
 
-    useEffect(() => {
-        handleFindData();
-    }, );
+
     const handleSave = async () => {
         try {
             if (userAnswerData) {
