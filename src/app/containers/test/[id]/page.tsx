@@ -152,7 +152,7 @@ export default function Page() {
                                                             <div
                                                                 className={`question_choice_box ${
                                                                     (selectedAnswers[question.number] === optionIndex + 1 || userAnswerDataContent[question.number] === optionIndex + 1) &&
-                                                                    selectedAnswers[question.number] ? 'active' : ''
+                                                                    !(selectedAnswers[question.number] === optionIndex + 1 && userAnswerDataContent[question.number] === optionIndex + 1) ? 'active' : ''
                                                                 }`}
                                                                 onClick={() => handleAnswer(question.number, optionIndex + 1)}>
                                                                 <div
@@ -170,10 +170,7 @@ export default function Page() {
                                                     <Fragment key={optionIndex}>
                                                         <div className={'question_item'}>
                                                             <div
-                                                                className={`question_choice_box ${
-                                                                    (selectedAnswers[question.number] === optionIndex + 3 || userAnswerDataContent[question.number] === optionIndex + 3) &&
-                                                                    selectedAnswers[question.number] ? 'active' : ''
-                                                                }`}
+                                                                className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 3 || userAnswerDataContent[question.number] === optionIndex + 3 ? 'active' : ''}`}
                                                                 onClick={() => handleAnswer(question.number, optionIndex + 3)}>
                                                                 <div className={"question_choice_number"}>
                                                                     {optionIndex + 3}</div>
@@ -190,10 +187,7 @@ export default function Page() {
                                                 <Fragment key={optionIndex}>
                                                     <div className={'question_item'}>
                                                         <div
-                                                            className={`question_choice_box ${
-                                                                (selectedAnswers[question.number] === optionIndex + 1 || userAnswerDataContent[question.number] === optionIndex + 1) &&
-                                                                selectedAnswers[question.number] ? 'active' : ''
-                                                            }`}
+                                                            className={`question_choice_box ${selectedAnswers[question.number] === optionIndex + 1 || userAnswerDataContent[question.number] === optionIndex + 1 ? 'active' : ''}`}
                                                             onClick={() => handleAnswer(question.number, optionIndex + 1)}>
                                                             <div className={"question_choice_number"}>
                                                                 {optionIndex + 1}
