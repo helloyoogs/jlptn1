@@ -1,7 +1,7 @@
 'use client';
 import connectDB from './db';
 import mongoose from 'mongoose';
-import { getSession } from 'next-auth/react'
+import {useSession} from 'next-auth/react'
 
 const DataModel = mongoose.model('test', {
     user:String,
@@ -12,7 +12,7 @@ const DataModel = mongoose.model('test', {
 
 const handler = async (req, res) => {
     await connectDB();
-    const session = await getSession({ req })
+    const {data: session} = useSession();
 
     switch (req.method) {
         case 'GET':
