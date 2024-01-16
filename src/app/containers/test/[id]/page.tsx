@@ -65,7 +65,7 @@ export default function Page() {
     const handleSave = async () => {
         try {
             if (userAnswerData) {
-                const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
+                const response = await fetch(`/api/testData?testId=${testId.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -95,7 +95,6 @@ export default function Page() {
                 const data = await response.json();
                 console.log('Data saved successfully:', data);
             }
-            handleFindData();
         } catch (error) {
             console.error('Error handling save:', error);
         }
@@ -122,7 +121,6 @@ export default function Page() {
             });
             const data = await response.json();
         }
-        handleFindData();
     };
 
     const handleAnswer = (questionNumber: number, answer: number) => {

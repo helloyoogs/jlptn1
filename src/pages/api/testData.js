@@ -46,29 +46,10 @@ const handler = async (req, res) => {
             }
             break;
 
-        case 'DELETE':
-            try {
-                const deletedData = await DataModel.findOneAndDelete({
-                    user: req.body.user,
-                    testId: req.body.testId,
-                });
-                if (deletedData) {
-                    console.log('Data deleted successfully');
-                    res.status(200).json({ message: 'Data deleted successfully' });
-                } else {
-                    res.status(404).json({ message: 'Data not found' });
-                }
-            } catch (error) {
-                console.error('Error deleting data from MongoDB:', error);
-                res.status(500).json({ message: 'Internal Server Error' });
-            }
-            break;
-
         case 'PUT':
             try {
                 const updatedData = await DataModel.findOneAndUpdate(
-                    { user: req.body.user,
-                    testId: req.body.testId, submit:false },
+                    { testId:req.query.testId, submit:false },
                     { content: req.body.content,submit:req.body.submit },
                     { new: true }
                 );
