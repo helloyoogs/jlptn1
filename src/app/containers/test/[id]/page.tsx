@@ -30,8 +30,6 @@ export default function Page() {
     const userAnswerDataContent = userAnswerData?.content || {}
     console.log(userAnswerData);
 
-    console.log(userAnswerDataContent);
-
     const handleFindData = async () => {
         try {
             const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
@@ -123,7 +121,6 @@ export default function Page() {
 
 
     useEffect(() => {
-        console.log(selectedAnswers)
     }, [selectedAnswers]);
 
     const RenderQuestionBox = () => {
