@@ -52,7 +52,7 @@ export default function Page() {
 
     useLayoutEffect(() => {
         handleFindData();
-    }, []);
+    }, [selectedAnswers]);
     const handleSave = async () => {
         try {
             if (userAnswerData) {
