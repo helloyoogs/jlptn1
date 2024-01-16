@@ -152,7 +152,7 @@ export default function Page() {
                                                         <div className={'question_item'}>
                                                             <div
                                                                 className={`question_choice_box ${
-                                                                    !selectedAnswers
+                                                                    !selectedAnswers[question.number]
                                                                         ? userAnswerDataContent[question.number] === optionIndex + 1
                                                                             ? 'active'
                                                                             : ''
