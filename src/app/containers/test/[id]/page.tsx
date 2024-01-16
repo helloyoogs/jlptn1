@@ -73,7 +73,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
+                    body: JSON.stringify({ content: userAnswerDataContent?userAnswerDataContent:selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -88,7 +88,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ user: userEmail, testId: testId.id, content: selectedAnswers, submit: false }),
+                    body: JSON.stringify({ user: userEmail, testId: testId.id, content: userAnswerDataContent?userAnswerDataContent:selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -112,7 +112,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
+                    body: JSON.stringify({ content: userAnswerDataContent?userAnswerDataContent:selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -127,7 +127,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ user: userEmail, testId: testId.id, content: selectedAnswers, submit: true }),
+                    body: JSON.stringify({ user: userEmail, testId: testId.id, content: userAnswerDataContent?userAnswerDataContent:selectedAnswers, submit: true }),
                 });
 
                 if (!response.ok) {
@@ -227,7 +227,8 @@ export default function Page() {
                                                                     : selectedAnswers[question.number] === optionIndex + 1
                                                                         ? 'active'
                                                                         : ''
-                                                            }`}                                                            onClick={() => handleAnswer(question.number, optionIndex + 1)}>
+                                                            }`}
+                                                            onClick={() => handleAnswer(question.number, optionIndex + 1)}>
                                                             <div className={"question_choice_number"}>
                                                                 {optionIndex + 1}
                                                             </div>
