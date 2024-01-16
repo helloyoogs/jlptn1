@@ -34,7 +34,7 @@ export default function Page() {
 
     const handleFindData = async () => {
         try {
-            const response = await fetch(`/api/data?testId=${testId.id}`, {
+            const response = await fetch(`/api/testData?testId=${testId.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -56,26 +56,47 @@ export default function Page() {
         handleFindData();
     }, []);
     const handleSave = async () => {
-        const response = await fetch('/api/data', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({user: userEmail, testId: testId.id, content: selectedAnswers, submit: false}),
-        });
-        const data = await response.json();
-    };
-
-    const handleSubmit = async () => {
-            const response = await fetch('/api/data', {
+        if(userAnswerData){
+            const response = await fetch('/api/testData', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({user: userEmail, testId: testId.id, content: selectedAnswers, submit: true}),
+                body: JSON.stringify({user: userEmail, testId: testId.id, content: selectedAnswers, submit: false}),
             });
-
             const data = await response.json();
+        } else{
+            const response = await fetch(`/api/testData?testId=${testId.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({content: selectedAnswers, submit: false}),
+            });
+            const data = await response.json();
+        }
+    };
+
+    const handleSubmit = async () => {
+        if(userAnswerData){
+            const response = await fetch('/api/testData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({user: userEmail, testId: testId.id, content: selectedAnswers, submit: false}),
+            });
+            const data = await response.json();
+        } else{
+            const response = await fetch(`/api/testData?testId=${testId.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({content: selectedAnswers, submit: true}),
+            });
+            const data = await response.json();
+        }
     };
 
     const handleAnswer = (questionNumber: number, answer: number) => {

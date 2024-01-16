@@ -1,5 +1,6 @@
 import connectDB from './db';
 import mongoose from 'mongoose';
+import {useSession} from "next-auth/react";
 
 const DataModel = mongoose.model('test', {
     user:String,
@@ -15,7 +16,9 @@ const handler = async (req, res) => {
         case 'GET':
             try {
                 const findData = await DataModel.findOne({
-                    testId: req.query.testId,
+                    user: useSession().data?.user?.email,
+                    testId: req.body.testId,
+                    submit:false
                 });
                 if (findData) {
                     console.log('Data found successfully');
@@ -47,10 +50,9 @@ const handler = async (req, res) => {
             break;
 
         case 'DELETE':
-            // Delete data entry by testId
             try {
                 const deletedData = await DataModel.findOneAndDelete({
-                    user:req.body.user,
+                    user: useSession().data?.user?.email,
                     testId: req.body.testId,
                 });
                 if (deletedData) {
@@ -66,11 +68,11 @@ const handler = async (req, res) => {
             break;
 
         case 'PUT':
-            // Update data entry by testId
             try {
                 const updatedData = await DataModel.findOneAndUpdate(
-                    { user:req.body.user,testId: req.body.testId },
-                    { content: req.body.content },
+                    { user: useSession().data?.user?.email,
+                    testId: req.body.testId, submit:false },
+                    { content: req.body.content,submit:req.body.submit },
                     { new: true }
                 );
                 if (updatedData) {
