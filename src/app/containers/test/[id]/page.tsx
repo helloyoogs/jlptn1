@@ -50,9 +50,9 @@ export default function Page() {
         }
     };
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         handleFindData();
-    }, [selectedAnswers]);
+    }, []);
     const handleSave = async () => {
         try {
             if (userAnswerData) {
@@ -86,6 +86,7 @@ export default function Page() {
                 const data = await response.json();
                 console.log('Data saved successfully:', data);
             }
+            handleFindData();
         } catch (error) {
             console.error('Error handling save:', error);
         }
@@ -112,6 +113,7 @@ export default function Page() {
             });
             const data = await response.json();
         }
+        handleFindData();
     };
 
     const handleAnswer = (questionNumber: number, answer: number) => {
