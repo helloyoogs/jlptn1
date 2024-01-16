@@ -1,8 +1,5 @@
-'use client';
-import React from "react";
 import connectDB from './db';
 import mongoose from 'mongoose';
-import {useSession} from 'next-auth/react'
 
 const DataModel = mongoose.model('test', {
     user:String,
@@ -10,8 +7,6 @@ const DataModel = mongoose.model('test', {
     content: Object,
     submit:Boolean
 });
-const { data: session } = useSession();
-const userEmail = session?.user?.email;
 const handler = async (req, res) => {
     await connectDB();
 
