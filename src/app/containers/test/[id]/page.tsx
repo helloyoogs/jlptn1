@@ -29,21 +29,29 @@ export default function Page() {
     const userEmail = session?.user?.email;
     const userAnswerDataContent = userAnswerData?.content || {}
 
-    console.log(userEmail)
     const handleFindData = async () => {
-            const response = await fetch(`/api/testData?testId=${testId.id}&user=helloyoogs@gmail.com`, {
+        try {
+            const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-        const data = await response.json();
-        console.log('Data saved successfully:', data);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setUserAnswerData(data)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     };
 
     useEffect(() => {
         handleFindData();
-    }, []);
+    }, );
     const handleSave = async () => {
         try {
             if (userAnswerData) {
@@ -110,6 +118,7 @@ export default function Page() {
     const handleAnswer = (questionNumber: number, answer: number) => {
         setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answer}));
     };
+    console.log(Object.keys(selectedAnswers).length)
 
 
     useEffect(() => {
