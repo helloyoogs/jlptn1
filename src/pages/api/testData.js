@@ -1,3 +1,4 @@
+'use client';
 import connectDB from './db';
 import mongoose from 'mongoose';
 import {useSession} from "next-auth/react";
