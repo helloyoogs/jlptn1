@@ -39,7 +39,7 @@ export default function Page() {
                     setUserAnswerData(res);
                 });
         }
-    }, [selectedAnswers, userEmail]);
+    }, []);
 
     const handleFindData = async () => {
         try {
