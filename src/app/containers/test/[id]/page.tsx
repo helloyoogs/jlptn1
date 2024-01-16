@@ -46,7 +46,6 @@ export default function Page() {
                 })
                 .catch((error) => {
                     console.error("Error during fetch:", error);
-                    // Handle the error, e.g., set an error state or display an error message
                 });
         }
     }, [userEmail]);
@@ -80,7 +79,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
+                    body: JSON.stringify({ content: userAnswerDataContent?userAnswerDataContent:selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -115,7 +114,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
+                    body: JSON.stringify({ content: userAnswerDataContent?userAnswerDataContent:selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
