@@ -29,8 +29,6 @@ export default function Page() {
     const userEmail = session?.user?.email;
     const userAnswerDataContent = userAnswerData?.content || {}
 
-    console.log(userAnswerData)
-
     useLayoutEffect(() => {
         if (userEmail) {
             fetch(`/api/testData?testId=${testId.id}`, {
@@ -66,7 +64,6 @@ export default function Page() {
 
 
     const handleSave = async () => {
-        try {
             if (userAnswerData) {
                 const response = await fetch(`/api/testData?testId=${testId.id}`, {
                     method: 'PUT',
@@ -98,14 +95,10 @@ export default function Page() {
                 const data = await response.json();
                 console.log('Data saved successfully:', data);
             }
-        } catch (error) {
-            console.error('Error handling save:', error);
-        }
     };
 
 
     const handleSubmit = async () => {
-        try {
             if (userAnswerData) {
                 const response = await fetch(`/api/testData?testId=${testId.id}`, {
                     method: 'PUT',
@@ -137,9 +130,7 @@ export default function Page() {
                 const data = await response.json();
                 console.log('Data saved successfully:', data);
             }
-        } catch (error) {
-            console.error('Error handling save:', error);
-        }
+
     };
 
     const handleAnswer = (questionNumber: number, answer: number) => {
