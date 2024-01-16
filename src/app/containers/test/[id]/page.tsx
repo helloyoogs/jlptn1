@@ -30,7 +30,7 @@ export default function Page() {
     const userAnswerDataContent = userAnswerData?.content || {}
     useEffect(() => {
         if (userEmail) {
-            fetch(`/api/testData`, {
+            fetch(`/api/testData/${testId}`, {
                 method: "GET"
             })
                 .then((res) => res.json())
@@ -43,7 +43,7 @@ export default function Page() {
 
     const handleFindData = async () => {
         try {
-            const response = await fetch(`/api/testData?testId=${testId.id}&user=${userEmail}`, {
+            const response = await fetch(`/api/testData`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
