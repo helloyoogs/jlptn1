@@ -30,7 +30,7 @@ export default function Page() {
     const userAnswerDataContent = userAnswerData?.content || {}
     console.log(userAnswerData);
 console.log(userEmail)
-    console.log(data)
+    console.log(session)
     const handleFindData = async () => {
         try {
             const response = await fetch(`/api/testData?testId=${testId.id}&user=${session?.user?.email}`, {
