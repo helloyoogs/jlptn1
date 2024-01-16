@@ -34,13 +34,23 @@ export default function Page() {
             fetch(`/api/testData?testId=${testId.id}`, {
                 method: "GET"
             })
-                .then((res) => res.json())
                 .then((res) => {
-                    console.log(1, res);
+                    if (!res.ok) {
+                        throw new Error(`Failed to fetch data. HTTP error! Status: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then((res) => {
+                    console.log("Successful fetch:", res);
                     setUserAnswerData(res);
+                })
+                .catch((error) => {
+                    console.error("Error during fetch:", error);
+                    // Handle the error, e.g., set an error state or display an error message
                 });
         }
     }, [userEmail]);
+
 
     const handleFindData = async () => {
         try {
