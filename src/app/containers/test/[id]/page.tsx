@@ -146,10 +146,8 @@ export default function Page() {
         [key: number]: number;
     }
 
-    const array1: MyObject = { 1: 3, 2: 3, 3: 3 };
-    const array2: MyObject = { 1: 2, 2: 4, 4: 5 };
 
-    const arrayAll: MyObject = { ...array1, ...array2 };
+    const arrayAll: MyObject = { ...userAnswerDataContent, ...selectedAnswers };
 
     console.log(arrayAll);
 
