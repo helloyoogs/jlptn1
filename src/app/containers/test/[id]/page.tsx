@@ -52,27 +52,6 @@ export default function Page() {
     }, [userEmail,arrayAll]);
 
 
-    const handleFindData = async () => {
-        try {
-            const response = await fetch(`/api/testData`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setUserAnswerData(data)
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
-
     const handleSave = async () => {
             if (userAnswerData) {
                 const response = await fetch(`/api/testData?testId=${testId.id}`, {

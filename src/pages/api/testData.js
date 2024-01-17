@@ -49,7 +49,7 @@ const handler = async (req, res) => {
         case 'PUT':
             try {
                 const updatedData = await DataModel.findOneAndUpdate(
-                    { testId:req.query.testId, submit:false },
+                    { testId:req.query.testId },
                     { content: req.body.content,submit:req.body.submit },
                     { new: true }
                 );
