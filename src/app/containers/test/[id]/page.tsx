@@ -100,7 +100,7 @@ export default function Page() {
 
             const data = await response.json();
         }
-        fetchData()
+        window.location.reload();
     };
 
 
@@ -134,7 +134,6 @@ export default function Page() {
 
             const data = await response.json();
         }
-        fetchData()
     };
 
     interface MyObject {
