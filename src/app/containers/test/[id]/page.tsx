@@ -34,10 +34,12 @@ export default function Page() {
     const arrayAll: MyObject = {...userAnswerDataContent, ...selectedAnswers};
     const [loading, setLoading] = useState(false);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (userEmail) {
+            setLoading(true);
+
             fetch(`/api/testData?testId=${testId.id}`, {
-                method: "GET"
+                method: 'GET',
             })
                 .then((res) => {
                     if (!res.ok) {
@@ -49,7 +51,10 @@ export default function Page() {
                     setUserAnswerData(res);
                 })
                 .catch((error) => {
-                    console.error("Error during fetch:", error);
+                    console.error('Error during fetch:', error);
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
         }
     }, [userEmail, arrayAll, selectedAnswers]);
@@ -154,7 +159,7 @@ export default function Page() {
 
 
         const RenderQuestionBox = () => {
-            return userEmail && userAnswerData ? "...loading" :loading ? "...문제 제출 중입니다." : testId.n1?.map((questionSet, setIndex) => (
+            return loading ? "...문제 제출 중입니다." : testId.n1?.map((questionSet, setIndex) => (
                 <div key={setIndex} className={'question_box'}>
                     <div className={'question_box_title'}>{questionSet.title}</div>
                     <div className={'question_item_box_wrap'}>
