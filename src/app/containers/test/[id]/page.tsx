@@ -7,6 +7,7 @@ import Footer from "@/app/components/footer/footer";
 import {useParams} from "next/navigation";
 import {useSession} from "next-auth/react";
 import {isKeyObject} from "util/types";
+import {list} from "postcss";
 
 interface UserAnswer {
     _id: string;
@@ -144,6 +145,7 @@ export default function Page() {
     console.log(userAnswerDataContent)
 console.log(userAnswerDataContent.hasOwnProperty(1))
     console.log(userAnswerDataContent[0])
+    console.log(typeof Object.keys(userAnswerDataContent))
     const handleAnswer = (questionNumber: number, answer: number) => {
         const answerData = userAnswerDataContent.hasOwnProperty(questionNumber)
             ? 'g'
