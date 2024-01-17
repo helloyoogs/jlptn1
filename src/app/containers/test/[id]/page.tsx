@@ -141,13 +141,38 @@ export default function Page() {
             }
 
     };
+    let array1 = {1: 3, 3: 2, 5: 1};
+    let array2 = {1: 2, 3: 4, 4: 2};
+
+    let arrayAll = mergeObjects(array1, array2);
+    console.log(arrayAll);
+    function mergeObjects(obj1:any, obj2:any) {
+        let result = {};
+
+        // obj1의 항목 추가
+        for (let key in obj1) {
+            if (obj1.hasOwnProperty(key)) {
+                result[key] = (result[key] || 0) + obj1[key];
+            }
+        }
+
+        // obj2의 항목 추가
+        for (let key in obj2) {
+            if (obj2.hasOwnProperty(key)) {
+                result[key] = (result[key] || 0) + obj2[key];
+            }
+        }
+
+        return result;
+    }
+
+
+
     const handleAnswer = (questionNumber: number, answer: number) => {
-        const answerData = answer ? answer: userAnswerDataContent[questionNumber];
+         // const answerData = Object.keys(userAnswerDataContent).map(Number) === questionNumber? answer: Object.values(userAnswerDataContent);
 
-        console.log(Object.keys(userAnswerDataContent))
-        console.log(Object.values(userAnswerDataContent))
 
-        return setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answerData}));
+        return setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answer}));
     };
 
 
