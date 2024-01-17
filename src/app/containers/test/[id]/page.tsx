@@ -262,7 +262,7 @@ export default function Page() {
                     </div>
                     {session &&
                         <div className={'save_box'}>
-                            {questionLength === Object.keys(selectedAnswers).length?
+                            {questionLength === Object.keys(arrayAll).length?
                                 <button className={'submit'} onClick={handleSubmit}>
                                     提出
                                 </button>
