@@ -143,10 +143,9 @@ export default function Page() {
     };
     const handleAnswer = (questionNumber: number, answer: number) => {
         const answerData = answer ? answer: userAnswerDataContent[questionNumber];
-        console.log(`힝 ${JSON.stringify(userAnswerDataContent)}`);
 
-        console.log(questionNumber);
-        console.log(answer)
+        console.log(Object.keys(userAnswerDataContent))
+        console.log(Object.values(userAnswerDataContent))
 
         return setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answerData}));
     };
