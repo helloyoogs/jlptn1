@@ -18,7 +18,7 @@ const handler = async (req, res) => {
                     submit:false
                 });
                 if (findData) {
-                    console.log('Data found successfully');
+                    console.log('GET successfully');
                     res.status(200).json(findData);
                 } else {
                     res.status(404).json({ message: 'Data not found' });
@@ -39,7 +39,7 @@ const handler = async (req, res) => {
                 });
                 await data.save();
                 console.log('Data saved successfully');
-                res.status(201).json({ message: 'Data saved successfully' });
+                res.status(201).json({ message: 'POST successfully' });
             } catch (error) {
                 console.error('Error saving data to MongoDB:', error);
                 res.status(500).json({ message: 'Internal Server Error' });
@@ -55,7 +55,7 @@ const handler = async (req, res) => {
                 );
                 if (updatedData) {
                     console.log('Data updated successfully');
-                    res.status(200).json({ message: 'Data updated successfully' });
+                    res.status(200).json({ message: 'PUT successfully' });
                 } else {
                     res.status(404).json({ message: 'Data not found' });
                 }
