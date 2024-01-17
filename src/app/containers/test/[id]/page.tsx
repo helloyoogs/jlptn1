@@ -79,7 +79,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: mergeArrays(selectedAnswers,userAnswerDataContent), submit: false }),
+                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -108,15 +108,7 @@ export default function Page() {
 console.log(Object.keys(userAnswerDataContent))
     console.log(Object.keys(selectedAnswers))
 
-    const mergeArrays = (obj1:any, obj2:any) => {
-        let mergedArray = Object.assign({}, obj1);
 
-        for (let key in obj2) {
-            if (!obj1.hasOwnProperty(key)) {
-                mergedArray[key] = obj2[key];
-            }
-        }
-    }
     const handleSubmit = async () => {
             if (userAnswerData) {
                 const response = await fetch(`/api/testData?testId=${testId.id}`, {
@@ -124,7 +116,7 @@ console.log(Object.keys(userAnswerDataContent))
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: mergeArrays(selectedAnswers,userAnswerDataContent), submit: false }),
+                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
