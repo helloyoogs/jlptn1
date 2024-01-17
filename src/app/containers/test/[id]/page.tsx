@@ -141,7 +141,8 @@ export default function Page() {
             }
 
     };
-
+    console.log(userAnswerDataContent)
+console.log(userAnswerDataContent.hasOwnProperty(1))
     const handleAnswer = (questionNumber: number, answer: number) => {
         const answerData = userAnswerDataContent.hasOwnProperty(questionNumber)
             ? 'g'
