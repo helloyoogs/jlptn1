@@ -34,12 +34,10 @@ export default function Page() {
     const arrayAll: MyObject = {...userAnswerDataContent, ...selectedAnswers};
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (userEmail) {
-            setLoading(true);
-
             fetch(`/api/testData?testId=${testId.id}`, {
-                method: 'GET',
+                method: "GET"
             })
                 .then((res) => {
                     if (!res.ok) {
@@ -51,10 +49,7 @@ export default function Page() {
                     setUserAnswerData(res);
                 })
                 .catch((error) => {
-                    console.error('Error during fetch:', error);
-                })
-                .finally(() => {
-                    setLoading(false);
+                    console.error("Error during fetch:", error);
                 });
         }
     }, [userEmail, arrayAll, selectedAnswers]);
