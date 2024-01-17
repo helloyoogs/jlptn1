@@ -142,17 +142,13 @@ export default function Page() {
 
     };
 
-
     const handleAnswer = (questionNumber: number, answer: number) => {
-        const answerData = questionNumber in userAnswerDataContent
+        const answerData = Object.keys(userAnswerDataContent).hasOwnProperty(questionNumber)
             ? answer
             : Object.values(userAnswerDataContent);
-
-        console.log(typeof Object.values(userAnswerDataContent))
-
-       return setSelectedAnswers((prevAnswers) => ({ ...prevAnswers, [questionNumber]: answer }));
+console.log(answerData)
+        // setSelectedAnswers((prevAnswers) => ({ ...prevAnswers, [questionNumber]: answerData }));
     };
-
 
 
     useEffect(() => {
