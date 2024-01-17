@@ -143,11 +143,12 @@ export default function Page() {
     };
 
     const handleAnswer = (questionNumber: number, answer: number) => {
-        const answerData = userAnswerDataContent.hasOwnProperty(questionNumber)
+        const answerData = Object.keys(userAnswerDataContent).hasOwnProperty(questionNumber)
             ? answer
-            : Object.values(userAnswerDataContent);
+            // : Object.values(userAnswerDataContent);
+            :'ㅇ'
 console.log(answerData)
-        // setSelectedAnswers((prevAnswers) => ({ ...prevAnswers, [questionNumber]: answerData }));
+         // setSelectedAnswers((prevAnswers) => ({ ...prevAnswers, [questionNumber]: answerData }));
     };
 
 
