@@ -43,7 +43,6 @@ export default function Page() {
                     return res.json();
                 })
                 .then((res) => {
-                    console.log("Successful fetch:", res);
                     setUserAnswerData(res);
                 })
                 .catch((error) => {
@@ -89,7 +88,6 @@ export default function Page() {
                 }
 
                 const data = await response.json();
-                console.log('Data saved successfully:', data);
             } else {
                 const response = await fetch('/api/testData', {
                     method: 'POST',
@@ -104,7 +102,6 @@ export default function Page() {
                 }
 
                 const data = await response.json();
-                console.log('Data saved successfully:', data);
             }
     };
 
@@ -124,7 +121,6 @@ export default function Page() {
                 }
 
                 const data = await response.json();
-                console.log('Data saved successfully:', data);
             } else {
                 const response = await fetch('/api/testData', {
                     method: 'POST',
@@ -139,7 +135,6 @@ export default function Page() {
                 }
 
                 const data = await response.json();
-                console.log('Data saved successfully:', data);
             }
 
     };
