@@ -29,6 +29,7 @@ export default function Page() {
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = session?.user?.email;
     const userAnswerDataContent = userAnswerData?.content || {}
+    const arrayAll: MyObject = { ...userAnswerDataContent, ...selectedAnswers };
 
     useLayoutEffect(() => {
         if (userEmail) {
@@ -80,7 +81,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
+                    body: JSON.stringify({ content: arrayAll, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -115,7 +116,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
+                    body: JSON.stringify({ content: arrayAll, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -146,22 +147,8 @@ export default function Page() {
         [key: number]: number;
     }
 
-
-    const arrayAll: MyObject = { ...userAnswerDataContent, ...selectedAnswers };
-
-    console.log(arrayAll);
-
-    console.log(userAnswerDataContent)
-console.log(userAnswerDataContent.hasOwnProperty(1))
-    console.log(userAnswerDataContent[0])
-    console.log(typeof Object.keys(userAnswerDataContent))
     const handleAnswer = (questionNumber: number, answer: number) => {
-        const answerData = userAnswerDataContent.hasOwnProperty(questionNumber)
-            ? 'g'
-            // : Object.values(userAnswerDataContent);
-            :'ㅇ'
-console.log(answerData)
-         // setSelectedAnswers((prevAnswers) => ({ ...prevAnswers, [questionNumber]: answerData }));
+          setSelectedAnswers((prevAnswers) => ({ ...prevAnswers, [questionNumber]: answer }));
     };
 
 
