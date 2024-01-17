@@ -143,8 +143,8 @@ export default function Page() {
     };
 
     const handleAnswer = (questionNumber: number, answer: number) => {
-        const answerData = Object.keys(userAnswerDataContent).hasOwnProperty(questionNumber)
-            ? answer
+        const answerData = userAnswerDataContent.hasOwnProperty(questionNumber)
+            ? 'g'
             // : Object.values(userAnswerDataContent);
             :'ㅇ'
 console.log(answerData)
