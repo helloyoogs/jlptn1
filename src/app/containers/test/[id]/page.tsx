@@ -101,6 +101,8 @@ export default function Page() {
             }
 
             const data = await response.json();
+            window.location.reload();
+
         } else {
             const response = await fetch('/api/testData', {
                 method: 'POST',
@@ -115,8 +117,8 @@ export default function Page() {
             }
 
             const data = await response.json();
+            window.location.reload();
         }
-        window.location.reload();
     };
 
     interface MyObject {
