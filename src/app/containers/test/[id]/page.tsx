@@ -19,7 +19,7 @@ interface UserAnswer {
 interface MyObject {
     [key: number]: number;
 }
-{/* todo: 리팩토링,오답문제 보는 페이지,임시 저장한 페이지 해당 문제 들어가면 풀던 그대로 보여주기,제출하기 누르면 임시저장한 데이터는 오답문제 데이터로 */
+{/* todo: 리팩토링,오답문제 보는 페이지 */
 }
 
 export default function Page() {
