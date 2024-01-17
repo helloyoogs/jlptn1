@@ -152,8 +152,8 @@ console.log(Object.values(userAnswerDataContent))
 
     };
     const handleAnswer = (questionNumber: number, answer: number) => {
-        const answerData = answer ? answer: userAnswerDataContent[questionNumber];
-        return setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answerData}));
+        // const answerData = answer ? answer: userAnswerDataContent[questionNumber];
+        return setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answer}));
     };
 
 
