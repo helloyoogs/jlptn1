@@ -154,7 +154,7 @@ export default function Page() {
 
 
         const RenderQuestionBox = () => {
-            return loading ? "...문제 제출 중입니다." : testId.n1?.map((questionSet, setIndex) => (
+            return userEmail && userAnswerData ? "...loading" :loading ? "...문제 제출 중입니다." : testId.n1?.map((questionSet, setIndex) => (
                 <div key={setIndex} className={'question_box'}>
                     <div className={'question_box_title'}>{questionSet.title}</div>
                     <div className={'question_item_box_wrap'}>
