@@ -144,9 +144,11 @@ console.log(Object.keys(userAnswerDataContent))
 
     };
     const handleAnswer = (questionNumber: number, answer: number) => {
-        const answerData = answer ? answer: userAnswerDataContent[questionNumber];
-        return setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answerData}));
+        const answerData = answer ? answer : userAnswerDataContent[questionNumber];
+        console.log(userAnswerDataContent[questionNumber])
+        setSelectedAnswers((prevAnswers) => ({ ...prevAnswers, [questionNumber]: answerData }));
     };
+
 
 
     useEffect(() => {
