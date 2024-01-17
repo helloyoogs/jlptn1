@@ -142,6 +142,17 @@ export default function Page() {
             }
 
     };
+    interface MyObject {
+        [key: number]: number;
+    }
+
+    const array1: MyObject = { 1: 3, 2: 3, 3: 3 };
+    const array2: MyObject = { 1: 2, 2: 4, 4: 5 };
+
+    const arrayAll: MyObject = { ...array1, ...array2 };
+
+    console.log(arrayAll);
+
     console.log(userAnswerDataContent)
 console.log(userAnswerDataContent.hasOwnProperty(1))
     console.log(userAnswerDataContent[0])
