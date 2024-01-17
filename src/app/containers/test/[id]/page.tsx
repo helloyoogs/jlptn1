@@ -79,7 +79,7 @@ export default function Page() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: mergeArrays(selectedAnswers,userAnswerDataContent), submit: false }),
+                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -105,18 +105,8 @@ export default function Page() {
                 console.log('Data saved successfully:', data);
             }
     };
-console.log(Object.values(userAnswerDataContent))
-    console.log(Object.values(selectedAnswers))
 
-    const mergeArrays = (obj1:any, obj2:any) => {
-        let mergedArray = Object.assign({}, obj1);
 
-        for (let key in obj2) {
-            if (!obj1.hasOwnProperty(key)) {
-                mergedArray[key] = obj2[key];
-            }
-        }
-    }
     const handleSubmit = async () => {
             if (userAnswerData) {
                 const response = await fetch(`/api/testData?testId=${testId.id}`, {
@@ -124,7 +114,7 @@ console.log(Object.values(userAnswerDataContent))
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: mergeArrays(selectedAnswers,userAnswerDataContent), submit: false }),
+                    body: JSON.stringify({ content: selectedAnswers, submit: false }),
                 });
 
                 if (!response.ok) {
@@ -151,6 +141,7 @@ console.log(Object.values(userAnswerDataContent))
             }
 
     };
+    console.log(`힝 ${userAnswerDataContent}`)
     const handleAnswer = (questionNumber: number, answer: number) => {
         const answerData = answer ? answer: userAnswerDataContent[questionNumber];
         return setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answerData}));
