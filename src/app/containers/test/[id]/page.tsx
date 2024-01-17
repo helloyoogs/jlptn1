@@ -29,7 +29,7 @@ export default function Page() {
     const questionLength = testId.n1.reduce((total, item) => total + item.question.length, 0)
     const userEmail = session?.user?.email;
     const userAnswerDataContent = userAnswerData?.content || {}
-    const arrayAll: MyObject = { ...userAnswerDataContent, ...selectedAnswers };
+    const arrayAll: MyObject = {...userAnswerDataContent, ...selectedAnswers};
 
     useLayoutEffect(() => {
         if (userEmail) {
@@ -49,80 +49,100 @@ export default function Page() {
                     console.error("Error during fetch:", error);
                 });
         }
-    }, [userEmail,arrayAll,selectedAnswers]);
-
+    }, [userEmail, arrayAll, selectedAnswers]);
+    const fetchData = async () => {
+        if (userEmail) {
+            fetch(`/api/testData?testId=${testId.id}`, {
+                method: "GET"
+            })
+                .then((res) => {
+                    if (!res.ok) {
+                        throw new Error(`Failed to fetch data. HTTP error! Status: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then((res) => {
+                    setUserAnswerData(res);
+                })
+                .catch((error) => {
+                    console.error("Error during fetch:", error);
+                });
+        }
+    }
 
     const handleSave = async () => {
-            if (userAnswerData) {
-                const response = await fetch(`/api/testData?testId=${testId.id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ content: arrayAll, submit: false }),
-                });
+        if (userAnswerData) {
+            const response = await fetch(`/api/testData?testId=${testId.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({content: arrayAll, submit: false}),
+            });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-            } else {
-                const response = await fetch('/api/testData', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ user: userEmail, testId: testId.id, content: selectedAnswers, submit: false }),
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
+
+            const data = await response.json();
+        } else {
+            const response = await fetch('/api/testData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({user: userEmail, testId: testId.id, content: selectedAnswers, submit: false}),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+        }
+        fetchData()
     };
 
 
     const handleSubmit = async () => {
-            if (userAnswerData) {
-                const response = await fetch(`/api/testData?testId=${testId.id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ content: arrayAll, submit: true }),
-                });
+        if (userAnswerData) {
+            const response = await fetch(`/api/testData?testId=${testId.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({content: arrayAll, submit: true}),
+            });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-            } else {
-                const response = await fetch('/api/testData', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ user: userEmail, testId: testId.id, content: selectedAnswers, submit: true }),
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
+            const data = await response.json();
+        } else {
+            const response = await fetch('/api/testData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({user: userEmail, testId: testId.id, content: selectedAnswers, submit: true}),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+        }
+        fetchData()
     };
+
     interface MyObject {
         [key: number]: number;
     }
 
     const handleAnswer = (questionNumber: number, answer: number) => {
-          setSelectedAnswers((prevAnswers) => ({ ...prevAnswers, [questionNumber]: answer }));
+        setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answer}));
     };
 
 
@@ -178,7 +198,8 @@ export default function Page() {
                                                                         : selectedAnswers[question.number] === optionIndex + 3
                                                                             ? 'active'
                                                                             : ''
-                                                                }`}                                                                onClick={() => handleAnswer(question.number, optionIndex + 3)}>
+                                                                }`}
+                                                                onClick={() => handleAnswer(question.number, optionIndex + 3)}>
                                                                 <div className={"question_choice_number"}>
                                                                     {optionIndex + 3}</div>
                                                                 <div className={'question_choice_text'}>{option}</div>
@@ -233,13 +254,13 @@ export default function Page() {
                     </div>
                     {session &&
                         <div className={'save_box'}>
-                            {questionLength === Object.keys(arrayAll).length?
+                            {questionLength === Object.keys(arrayAll).length ?
                                 <button className={'submit'} onClick={handleSubmit}>
                                     提出
                                 </button>
                                 :
                                 <button className={'save'} onClick={handleSave}>
-                                臨時貯蔵
+                                    臨時貯蔵
                                 </button>
                             }
                         </div>
