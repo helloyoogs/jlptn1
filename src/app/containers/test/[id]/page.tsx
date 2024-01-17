@@ -49,7 +49,7 @@ export default function Page() {
                     console.error("Error during fetch:", error);
                 });
         }
-    }, [userEmail,arrayAll]);
+    }, [userEmail,arrayAll,selectedAnswers]);
 
 
     const handleSave = async () => {
