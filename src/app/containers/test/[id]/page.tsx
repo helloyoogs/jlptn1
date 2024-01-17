@@ -141,7 +141,7 @@ export default function Page() {
             }
 
     };
-    console.log(`힝 ${userAnswerDataContent}`)
+    console.log(`힝 ${JSON.stringify(userAnswerDataContent)}`);
     const handleAnswer = (questionNumber: number, answer: number) => {
         const answerData = answer ? answer: userAnswerDataContent[questionNumber];
         return setSelectedAnswers((prevAnswers) => ({...prevAnswers, [questionNumber]: answerData}));
