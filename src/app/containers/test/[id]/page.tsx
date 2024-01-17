@@ -50,7 +50,7 @@ export default function Page() {
                     console.error("Error during fetch:", error);
                 });
         }
-    }, [userEmail]);
+    }, [userEmail,arrayAll]);
 
 
     const handleFindData = async () => {
@@ -151,9 +151,6 @@ export default function Page() {
           setSelectedAnswers((prevAnswers) => ({ ...prevAnswers, [questionNumber]: answer }));
     };
 
-
-    useEffect(() => {
-    }, [selectedAnswers]);
 
     const RenderQuestionBox = () => {
         return testId.n1?.map((questionSet, setIndex) => (
