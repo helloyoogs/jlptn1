@@ -50,25 +50,8 @@ export default function Page() {
                 });
         }
     }, [userEmail, arrayAll, selectedAnswers]);
-    const fetchData = async () => {
-        if (userEmail) {
-            fetch(`/api/testData?testId=${testId.id}`, {
-                method: "GET"
-            })
-                .then((res) => {
-                    if (!res.ok) {
-                        throw new Error(`Failed to fetch data. HTTP error! Status: ${res.status}`);
-                    }
-                    return res.json();
-                })
-                .then((res) => {
-                    setUserAnswerData(res);
-                })
-                .catch((error) => {
-                    console.error("Error during fetch:", error);
-                });
-        }
-    }
+
+
 
     const handleSave = async () => {
         if (userAnswerData) {
@@ -100,7 +83,6 @@ export default function Page() {
 
             const data = await response.json();
         }
-        window.location.reload();
     };
 
 
@@ -134,6 +116,7 @@ export default function Page() {
 
             const data = await response.json();
         }
+        window.location.reload();
     };
 
     interface MyObject {
