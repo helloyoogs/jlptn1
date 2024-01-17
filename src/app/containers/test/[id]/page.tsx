@@ -56,34 +56,48 @@ export default function Page() {
 
 
     const handleSave = async () => {
-        if (userAnswerData) {
-            const response = await fetch(`/api/testData?testId=${testId.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({content: arrayAll, submit: false}),
-            });
+        try {
+            setLoading(true);
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+            if (userAnswerData) {
+                const response = await fetch(`/api/testData?testId=${testId.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ content: arrayAll, submit: false }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+            } else {
+                const response = await fetch('/api/testData', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        user: userEmail,
+                        testId: testId.id,
+                        content: selectedAnswers,
+                        submit: false,
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
             }
-
-            const data = await response.json();
-        } else {
-            const response = await fetch('/api/testData', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({user: userEmail, testId: testId.id, content: selectedAnswers, submit: false}),
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
+        } catch (error) {
+            // Handle errors here
+            console.error(error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -140,7 +154,7 @@ export default function Page() {
 
 
         const RenderQuestionBox = () => {
-            return loading ? "...loading" : testId.n1?.map((questionSet, setIndex) => (
+            return loading ? "...문제 제출 중입니다." : testId.n1?.map((questionSet, setIndex) => (
                 <div key={setIndex} className={'question_box'}>
                     <div className={'question_box_title'}>{questionSet.title}</div>
                     <div className={'question_item_box_wrap'}>
