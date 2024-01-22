@@ -265,11 +265,11 @@ export default function Page() {
                             <div className={'save_box'}>
                                 {questionLength === Object.keys(arrayAll).length ?
                                     <button className={'submit'} onClick={handleSubmit}>
-                                        提出
+                                        submit
                                     </button>
                                     :
                                     <button className={'save'} onClick={handleSave}>
-                                        臨時貯蔵
+                                        save
                                     </button>
                                 }
                             </div>

@@ -8,14 +8,13 @@ export default function Header() {
         <header>
             <div className={'header_nav'}>
                 <a className={'home_img'} href={'/containers/main'}></a>
-                <a href={'/containers/main'}>ホーム</a>
+                <a href={'/containers/main'}>home</a>
                 {userData ?
                     <>
-                        <a onClick={() => signOut({callbackUrl: "/"})}>ログアウト</a>
-                        <a href={'/containers/my'}>マイページ</a>
+                        <a onClick={() => signOut({callbackUrl: "/"})}>logout</a>
                     </>
                     :
-                    <a onClick={() => signIn("google", {callbackUrl: "/"})}>ログイン</a>
+                    <a onClick={() => signIn("google", {callbackUrl: "/"})}>login</a>
                 }
             </div>
         </header>

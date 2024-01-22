@@ -15,11 +15,25 @@ header{
     flex-direction: column;
     gap: 50px;
 }
-.main_container .test_item_box a{
+.main_container .question_box_wrap{
+    display: flex;
+    flex-direction: column;
+}
+.main_container .question_box_wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.main_container select{
+    width: max-content;
+    height: 21px;
+}
+.main_container .question_box_text{
     cursor: pointer;
     border-bottom: 1px solid #000000;
 }
-.main_container .test_item_box a:hover{
+.main_container .question_box_text:hover{
     border-bottom: 1px solid #CF3E75;
     color: #CF3E75;
 }

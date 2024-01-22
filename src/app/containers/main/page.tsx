@@ -12,24 +12,36 @@ export default function Main() {
     return (
         <div className={'main_container'}>
             <div className={'page_inner'}>
-                <Header />
+                <Header/>
                 <div className={'page_inner_wrap'}>
                     <div className={'test_item_box'}>
                         {firstHalf.map((questionSet, setIndex) => (
-                            <a key={setIndex} className={'question_box'} href={`/containers/test/` + setIndex}>
-                                {questionSet.name}
-                            </a>
+                            <div className={'question_box_wrap'}>
+                                <div key={setIndex} className={'question_box'}>
+                                    {questionSet.name}
+                                </div>
+                                <select name={"test"}>
+                                    <option value={"result"}>응시결과</option>
+                                    <option value={"reset"}>다시풀기</option>
+                                    <option value={"incorrect"}>틀린문제풀기</option>
+                                    <option value={"delete"}>응시기록삭제</option>
+                                </select>
+                            </div>
                         ))}
                     </div>
                     <div className={'test_item_box'}>
                         {secondHalf.map((questionSet, setIndex) => (
-                            <a key={halfIndex + setIndex} className={'question_box'} href={`/containers/test/` + (halfIndex + setIndex)}>
+                            <div className={'question_box_wrap'}>
+                            <div className={'question_box'}>
                                 {questionSet.name}
-                            </a>
+                            </div>
+                                <a key={halfIndex + setIndex} className={'question_box_text'}
+                                   href={`/containers/test/` + (halfIndex + setIndex)}>응시하기</a>
+                            </div>
                         ))}
                     </div>
                 </div>
-                <Footer />
+                <Footer/>
             </div>
         </div>
     );
