@@ -14,7 +14,6 @@ const handler = async (req, res) => {
         case 'GET':
             try {
                 const findData = await DataModel.findOne({
-                    testId:req.query.testId,
                     submit:true
                 });
                 if (findData) {
