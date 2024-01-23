@@ -22,7 +22,7 @@ export default function Main() {
                 })
                 .then((res) => {
                     setUserAnswerData(res);
-                    console.log(userAnswerData)
+                    console.log(res)
                 })
                 .catch((error) => {
                     console.error("Error during fetch:", error);
