@@ -35,8 +35,8 @@ export default function Main() {
                 <div className={'page_inner_wrap'}>
                     <div className={'test_item_box'}>
                         {firstHalf.map((questionSet, setIndex) => (
-                            <div className={'question_box_wrap'}>
-                                <div key={setIndex} className={'question_box'}>
+                            <div className={'question_box_wrap'} key={setIndex}>
+                                <div className={'question_box'}>
                                     {questionSet.name}
                                 </div>
                                 <select name={"test"}>
@@ -50,7 +50,7 @@ export default function Main() {
                     </div>
                     <div className={'test_item_box'}>
                         {secondHalf.map((questionSet, setIndex) => (
-                            <div className={'question_box_wrap'}>
+                            <div className={'question_box_wrap'} key={setIndex}>
                                 <div className={'question_box'}>
                                     {questionSet.name}
                                 </div>
